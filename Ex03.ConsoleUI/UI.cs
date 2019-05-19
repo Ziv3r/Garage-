@@ -19,7 +19,6 @@ namespace Ex03.ConsoleUI
         8. Display full details of a vehicle.
         9. Quit.
         ";
-        bool k_ToExitProgram = false;
        
         public string GoodByeMessage
         {
@@ -32,15 +31,15 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(k_MainMenuText);
         }
 
-        public int GetKeyFromUser()
+        public string GetKeyFromUser()
         {
             int res;
-            while(!int.TryParse(Console.ReadLine(), out res))
+            while (!int.TryParse(Console.ReadLine(), out res))
             {
                 Console.WriteLine("Please enter number between 1-9");
             }
 
-            return res;
+            return res.ToString();
         }
 
 
