@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
             float m_MaxCapacity;                    
             float m_CurrentCapacity;
 
-            public energySource(int i_VehicleType,int i_FuelType,float i_CurrentAmountEnergy,float i_TotalAmountOfEnergy)
+            public EnergySource(int i_VehicleType,int i_FuelType,float i_CurrentAmountEnergy,float i_TotalAmountOfEnergy)
             {
                 m_SourceType = (eEnergySourceType)i_VehicleType;
                 m_EnergyType = (eEnergyType)i_FuelType;
