@@ -6,5 +6,7 @@ namespace Ex03.GarageLogic
 {
     class Program
     {
+
+        //some shit aboput git
     }
 }
