@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     class Wheel
     {
-        private string m_ManufacturerName;
+        private string m_ManufacturerName = "Good-Year";
         private float m_CurrentAirPressure ;
         private float m_MaximalCapacityAirPressure;
         
@@ -20,6 +20,11 @@ namespace Ex03.GarageLogic
             {
                 m_CurrentAirPressure += i_AmountToFillUp; 
             }
+        }
+        public void fillUp()
+        {
+            float diffBetweenCurrentToMax = m_MaximalCapacityAirPressure - m_CurrentAirPressure;
+            m_CurrentAirPressure += diffBetweenCurrentToMax; 
         }
 
     }

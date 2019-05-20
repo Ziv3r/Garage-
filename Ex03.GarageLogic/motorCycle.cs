@@ -22,5 +22,11 @@ namespace Ex03.GarageLogic
             m_LicenceType = (eLicenceType)i_LicenceType;
             m_EngineBlackSmith = i_EngineBlackSmith;
         }
+
+        public override string ToString()
+        {
+            string myData = String.Format("The Motor-Cycle has : {0} Engine Black Smith\nFor driving the Motor-Cycle you should have {1} Licence Type ",m_EngineBlackSmith ,m_LicenceType);
+            return base.ToString() + myData ;
+        }
     }
 }
