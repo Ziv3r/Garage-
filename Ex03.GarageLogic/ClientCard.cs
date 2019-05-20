@@ -6,8 +6,6 @@ namespace Ex03.GarageLogic
 {
     class ClientCard
     {
-        public enum eState { onWork, finished, payed };
-
         private string m_OwnerName;
         private string m_OwnerCellPhone;
         private Vehicle m_Vehicle;
