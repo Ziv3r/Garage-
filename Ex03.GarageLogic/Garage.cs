@@ -18,7 +18,7 @@ namespace Ex03.GarageLogic
             List<string> filteredClients = new List<string>();
             foreach(KeyValuePair<string, ClientCard> pair in m_Clients)
             {
-                if(pair.Value.State == i_State)
+                if(pair.Value.State == (ClientCard.eState)i_State)
                 {
                     filteredClients.Add(pair.Key);
                 }
@@ -27,26 +27,26 @@ namespace Ex03.GarageLogic
             return filteredClients;
         }
 
-        public List<string> getAllPlates()
+        public List<string> GetAllPlates()
         {
             List<string> plates = new List<string>();
             foreach (KeyValuePair<string, ClientCard> pair in m_Clients)
             {
-                    plates.Add(pair.Key);
-                
+                plates.Add(pair.Key);
+
             }
 
             return plates;
-        }
 
-        public void Add(ClientCard i_ToAdd, string i_ClientName, string i_ClientPhone)
+        }
+        public void Add(ClientCard i_ToAdd)
         {
             if (m_Clients.ContainsKey(i_ToAdd.Vehicle.LicenceNumber))
             {
                 throw new Exception("Error: Vehicle already exsists.");
             }
 
-            m_Clients.Add(i_ToAdd.LicenceNumber,i_ToAdd)
+            //m_Clients.Add(i_ToAdd.LicenceNumber, i_ToAdd);
         }
     }
 }

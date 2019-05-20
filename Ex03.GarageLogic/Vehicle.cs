@@ -64,15 +64,7 @@ namespace Ex03.GarageLogic
                m_EnergySource.MaxCapacity, m_EnergySource.CurrentCapacity);
             return s;
         }
-        //virtual public void ShowVehicleData()
-        //{ 
-        //    string s = String.Format("model name : {0} \nLicenseNumber : {1} \nnumber of wheels :{2} \n" + 
-        //        "the MaxAirPreasure of each whell is :{3}\nThe car is {4} car\nThe car energy source is :{5}\n"
-        //        + "the car has : {6} max Capacity\nThe current is :{7}", m_ModelName, m_LicenseNumber, m_VehicleWheels.Count, m_MaxAirPreasure ,m_EnergySource.SourceType , m_EnergySource.EnergyType,
-        //        m_EnergySource.MaxCapacity , m_EnergySource.CurrentCapacity);
-
-        //    Console.WriteLine(s);
-        //}
+       
         public float energyPercentage()
         {
             return m_EnergySource.CurrentCapacity / m_EnergySource.MaxCapacity;
@@ -125,3 +117,14 @@ namespace Ex03.GarageLogic
         }
     }
 }
+
+
+//virtual public void ShowVehicleData()
+//{ 
+//    string s = String.Format("model name : {0} \nLicenseNumber : {1} \nnumber of wheels :{2} \n" + 
+//        "the MaxAirPreasure of each whell is :{3}\nThe car is {4} car\nThe car energy source is :{5}\n"
+//        + "the car has : {6} max Capacity\nThe current is :{7}", m_ModelName, m_LicenseNumber, m_VehicleWheels.Count, m_MaxAirPreasure ,m_EnergySource.SourceType , m_EnergySource.EnergyType,
+//        m_EnergySource.MaxCapacity , m_EnergySource.CurrentCapacity);
+
+//    Console.WriteLine(s);
+//}
