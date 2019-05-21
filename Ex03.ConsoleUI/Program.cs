@@ -36,3 +36,9 @@ namespace Ex03.ConsoleUI
         }
     }
 }
+
+/*
+ TODO:
+ change Vehicle constructor 
+ add consts to capacities of wheels and fuel
+     */

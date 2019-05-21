@@ -23,7 +23,7 @@ namespace Ex03.ConsoleUI
 
         //Garage m_Garage = new Garage();
 
-        public void run()
+        public void Run()
         {
             string userChoice;
             eMenuChoice choiceAsEnum;

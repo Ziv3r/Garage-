@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     {
         private string m_ManufacturerName = "Good-Year";
         private float m_CurrentAirPressure ;
-        private float m_MaximalCapacityAirPressure;
+        private float m_MaximalCapacityAirPressure; //  to change to constant
         
         public Wheel(float i_MaximalCapacityAirPressure)
         {
