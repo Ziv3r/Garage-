@@ -42,6 +42,103 @@ namespace Ex03.ConsoleUI
             return res.ToString();
         }
 
+        public List<string> GetDataFromUser()
+        {
+            string vehicleType;
+            string engineType;
+            string LicenceNumber;
+            string modelName;
+            string ownerName;
+            string ownerPhone;
 
+            List<string> userData = new List<string>() ;
+
+            string[] vehicleTypes = new string [3]{ "car", "Motor-Cycle", "Track" };
+            string[] engineTypes = new string[2] { "gas", "electric" };
+           
+          int vehichleTypeUserChoice;
+          int energyTypeUserChoice;
+
+
+            Console.WriteLine(@"please choose vehicle type : 
+            1. Car 
+            2.Motor-Cycle
+            3.Track ");
+
+            vehicleType = Console.ReadLine();
+
+            while(!int.TryParse(vehicleType,out vehichleTypeUserChoice) || !inRange(vehichleTypeUserChoice, 1,3))
+            {
+                vehicleType = Console.ReadLine();
+            }
+
+            Console.WriteLine(@"please choose engine type :
+            1.gas 
+            2.electric");
+
+            engineType = Console.ReadLine();
+
+            while (!int.TryParse(engineType, out energyTypeUserChoice) || !inRange(energyTypeUserChoice, 1,2))
+            {
+                engineType = Console.ReadLine();
+            }
+
+            Console.WriteLine("please enter Licence Number");
+            LicenceNumber = Console.ReadLine();
+
+            Console.WriteLine("please enter Model Name");
+            modelName = Console.ReadLine();
+
+            Console.WriteLine("please enter owner name");
+            ownerName = Console.ReadLine();
+
+            Console.WriteLine("please enter owner phone");
+            ownerPhone = Console.ReadLine();
+
+            userData.Add(vehicleTypes[vehichleTypeUserChoice]);
+            userData.Add(engineTypes[energyTypeUserChoice]);
+            userData.Add(LicenceNumber);
+            userData.Add(modelName);
+            userData.Add(ownerName);
+            userData.Add(ownerPhone);
+
+            switch (vehichleTypeUserChoice)
+            {
+                //separte each case to function !!!!!!!
+                case 1:
+                    //getCarSpecificData();
+                    string chooseColorOption;
+                    int colorOption;
+                    string chooseColor = string.Format(@"enter color to the car :
+                    1.red
+                    2.blue
+                    3.black
+                    4.grey");
+                    Console.WriteLine(chooseColor);
+
+                    chooseColorOption = Console.ReadLine();
+                    while (!int.TryParse(engineType, out colorOption) || !inRange(colorOption, 1, 4))
+                    {
+                        chooseColorOption= Console.ReadLine();
+                    }
+
+
+                    break;
+                case 2:
+                    //getMotorCycleSpecificData();
+                    break;
+                case 3:
+                    //getTrackSpecificData();
+                    break; 
+            }
+
+
+        }
+
+        private bool inRange(int i_NumToCheck , int min , int max)
+        {
+            return i_NumToCheck >= min && i_NumToCheck <= max;
+        }
+        
     }
 }
