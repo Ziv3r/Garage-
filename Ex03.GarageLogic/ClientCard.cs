@@ -41,13 +41,13 @@ namespace Ex03.GarageLogic
 
         public void InflateWheels(float i_Amount)
         {
-            m_Vehicle.FillUpAirPressure();
+            m_Vehicle.FillAirPressure(i_Amount);
         }
 
-        //public void FillEnergy(float i_Amount, int i_Type)
-        //{
-        //    m_Vehicle.FillUpEnergy(i_Amount, i_Type);
-        //}
+        public void FillEnergy(float i_Amount, string i_Type)
+        {
+            m_Vehicle.FillEnergy(i_Amount, i_Type);
+        }
 
         public override string ToString()
         {
