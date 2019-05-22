@@ -6,25 +6,28 @@ namespace Ex03.GarageLogic
 {
     class Wheel
     {
+        private readonly float m_AirPressureCapacity; 
         private string m_ManufacturerName = "Good-Year";
-        private float m_CurrentAirPressure ;
-        private float m_MaximalCapacityAirPressure; //  to change to constant
+        private float m_AirPressure ;
         
-        public Wheel(float i_MaximalCapacityAirPressure)
+        public Wheel(float i_CapacityAirPressure)
         {
-            m_MaximalCapacityAirPressure = i_MaximalCapacityAirPressure;
+            m_AirPressureCapacity = i_CapacityAirPressure;
         }
-        public void fillUp(int i_AmountToFillUp)
+
+        public void fill(float i_AmountToFillUp)
         {
-            if(m_CurrentAirPressure + i_AmountToFillUp <= m_MaximalCapacityAirPressure)
+            if(m_AirPressure + i_AmountToFillUp > m_AirPressureCapacity)
             {
-                m_CurrentAirPressure += i_AmountToFillUp; 
+                throw new ArgumentException("Error: cannot fill more then wheel capacity");
             }
+                m_AirPressure += i_AmountToFillUp; 
         }
-        public void fillUp()
+
+        public void fillToMax()
         {
-            float diffBetweenCurrentToMax = m_MaximalCapacityAirPressure - m_CurrentAirPressure;
-            m_CurrentAirPressure += diffBetweenCurrentToMax; 
+            float diffBetweenCurrentToMax = m_AirPressureCapacity - m_AirPressure;
+            fill(diffBetweenCurrentToMax);
         }
 
     }

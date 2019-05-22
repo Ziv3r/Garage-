@@ -24,7 +24,7 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_numOfVehicle));
             }
-
+            FindByState.Invoke()
             m_Clients[i_numOfVehicle].State = i_NewState;
         }
         public List<string> FindByState(eState i_State)
