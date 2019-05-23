@@ -9,6 +9,7 @@ namespace Ex03.ConsoleUI
     {
         public static void Main()
         {
+            Ex03.GarageLogic.Car c = new Car("nos", "12", "ew", 5f);
             GarageManager GarageManager = new GarageManager();
             GarageManager.Run();
            

@@ -30,10 +30,8 @@ namespace Ex03.ConsoleUI
             eMenuChoice choiceAsEnum;
             while(!m_ToExitProgram)
             {
-                //int choiceAsint;
                 m_UI.PrintMenu();
                 userChoice = m_UI.GetKeyFromUser();
-                //int.TryParse(userChoice, out choiceAsint);
                 choiceAsEnum = (eMenuChoice)Enum.Parse(typeof(eMenuChoice), userChoice);
                 switch (choiceAsEnum)
                 {
@@ -70,13 +68,8 @@ namespace Ex03.ConsoleUI
             Type vehichleType = m_UI.GetVehicleTypeFromUser(supportedVehicles);
             //List<string> nameAndPhoneFromUser = m_UI.GetClientCardParams();
             List<string> vehiclesCommonData = m_UI.GetVehicleCommonData();
-            ClientCard NewClientCard = m_Alocator.CreateNewClientCard(
-                supportedVehicles[vehicleIndexInList].GetType(),
-                nameAndPhoneFromUser,
-                vehiclesCommonData
-                );
-
-            m_Garage.Add(NewClientCard);
+            ClientCard NewClientCard = m_Alocator.CreateNewClientCard(vehichleType, vehiclesCommonData);
+            m_UI.GetRelevantDataFromUser(NewClientCard.Vehicle);
            
         }
     }

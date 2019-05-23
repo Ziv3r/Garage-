@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         private const int k_NumOfWheels = 4;
         private const float k_MaxAirPressure = 31f;
         private const float k_MaxLitersOfFeul = 8f;
-        enum eColoros
+        public enum eColor
         {
             red = 0, 
             blue,
@@ -17,47 +17,63 @@ namespace Ex03.GarageLogic
             grey 
         };
 
-        private eColoros m_CarColor ;
+        private eColor m_CarColor ;
         private int m_NumDoors;
+
+        //static Car()
+        //{
+        //    sr_VehicleParams.Add("Enter Vehicle Color", "Color");
+        //    sr_VehicleParams.Add("Enter Number Of Doors", "NumOfDoors");
+        //}
+
+        //public Car(string i_VehicleType, string i_LicenceNum, )
+        //    : base(i_VehicleType, i_LicenceNum)
+        //{}
+     
+
 
         public Car(string i_modelName,
             string i_LicenseNumber,
-            EnergySource.eEnergySourceType i_VehicleType,
-            //float i_CurrentAmountEnergy,
-            int i_CarColor,
-            int i_NumDoors
+            string i_VehicleType,
+            float i_CurrentAmountEnergy
             )
             : this(i_modelName,
                   i_LicenseNumber,
                   i_VehicleType,
-                  i_VehicleType == EnergySource.eEnergySourceType.Gas ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
-                  50f,//i_CurrentAmountEnergy,
-                  k_MaxLitersOfFeul,
-                  i_CarColor,
-                  i_NumDoors
-                  ){}
+                  i_VehicleType == "gas" ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
+                  i_CurrentAmountEnergy,
+                  k_MaxLitersOfFeul                  
+                  )
+        { }
 
         public Car(string i_modelName,
             string i_LicenseNumber,
-            EnergySource.eEnergySourceType i_VehicleType,
+            string i_VehicleType,
             Gas.eFuelType i_fuelType,
             float i_CurrentAmountEnergy,
-            float i_TotalAmountOfEnergy,
-            int i_CarColor,
-            int i_NumDoors
+            float i_TotalAmountOfEnergy
             )
            : base(i_modelName,
                   i_LicenseNumber,
                   k_NumOfWheels,
                   k_MaxAirPressure,
+                  k_NumOfWheels,
                   i_VehicleType,
                   i_fuelType,
                   i_CurrentAmountEnergy,
                   i_TotalAmountOfEnergy
                   )
         {
-            m_CarColor = (eColoros)i_CarColor;
-            m_NumDoors = i_NumDoors; 
+        }
+
+        public eColor Color
+        {
+            set { m_CarColor = value; }
+        }
+
+        public int NumOfDoors
+        {
+            set { m_NumDoors = value; }
         }
 
 

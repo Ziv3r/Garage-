@@ -11,6 +11,13 @@ namespace Ex03.GarageLogic
         private Vehicle m_Vehicle;
         private eState m_State = eState.onWork;
 
+
+        public ClientCard(string i_Name, string i_Phone, Vehicle i_Vehicle)
+        {
+            m_Vehicle = i_Vehicle;
+            m_OwnerName = i_Name;
+            m_OwnerCellPhone = i_Phone;
+        }
         // properties:
 
         public string OwnerName

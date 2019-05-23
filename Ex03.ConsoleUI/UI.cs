@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Reflection;
 namespace Ex03.ConsoleUI
 {
     class UI
@@ -38,7 +38,7 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine("Please enter number between 1-9");
             }
-
+            res--;
             return res.ToString();
         }
 
@@ -60,7 +60,7 @@ namespace Ex03.ConsoleUI
             1.gas 
             2.electric");
 
-            engineType = Console.ReadLine();
+            engineType = Console.ReadLine();//  parse to eEnergySourceType
             int energyTypeUserChoice;
 
             while (!int.TryParse(engineType, out energyTypeUserChoice) || !inRange(energyTypeUserChoice, 1,2))
@@ -80,11 +80,14 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("please enter owner phone");
             ownerPhone = Console.ReadLine();
 
-            userData.Add(engineTypes[energyTypeUserChoice]);
-            userData.Add(LicenceNumber);
-            userData.Add(modelName);
+            Console.WriteLine("Enter current fuel amount:");
+            string fuelAmount = Console.ReadLine();
             userData.Add(ownerName);
             userData.Add(ownerPhone);
+            userData.Add(modelName);
+            userData.Add(LicenceNumber);
+            userData.Add(engineTypes[--energyTypeUserChoice]);
+            userData.Add(fuelAmount);
 
             return userData;
 
@@ -142,6 +145,29 @@ namespace Ex03.ConsoleUI
 
         }
 
+        public void GetRelevantDataFromUser(Ex03.GarageLogic.Vehicle i_Vehicle)
+        {
+            MethodInfo currMethod;
+            foreach(KeyValuePair<string, string> method in i_Vehicle.VehicleParamsSet)
+            {
+                bool success = false;
+                Console.WriteLine(method.Key);
+                while(!success)
+                {
+                    string input = Console.ReadLine();
+                    try
+                    {
+                        currMethod = i_Vehicle.GetType().GetMethod(method.Value);
+                        currMethod.Invoke(i_Vehicle, new object[] { input});
+                        success = true;
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.InnerException.Message);
+                    }
+                }
+            }
+        }
         private bool inRange(int i_NumToCheck , int min , int max)
         {
             return i_NumToCheck >= min && i_NumToCheck <= max;
@@ -150,24 +176,22 @@ namespace Ex03.ConsoleUI
         //  last commit:
         public Type GetVehicleTypeFromUser(List<string> i_SupportedVehicles)
         {
-            Type toReturn;
             int i = 1;
             Console.WriteLine("Choose Vehicle To Add:");
             foreach(string vehicle in i_SupportedVehicles)
             {
                 Console.WriteLine("{0}. {1}", i++, vehicle);
             }
-            string choice;
 
+            string choice;
             choice = Console.ReadLine();
             int vehicleChoice;
 
-            while (!int.TryParse(choice, out vehicleChoice) || !inRange(vehicleChoice, 1, i_SupportedVehicles.Count);
+            while (!int.TryParse(choice, out vehicleChoice) || !inRange(vehicleChoice, 1, i_SupportedVehicles.Count))
             {
                 choice = Console.ReadLine();
             }
-
-            toReturn = Type.GetType(i_SupportedVehicles[vehicleChoice - 1]);
+            return Type.GetType(string.Format("Ex03.GarageLogic.{0}, Ex03.GarageLogic", i_SupportedVehicles[vehicleChoice - 1])); //to check the exception that thrown if faile
         }
 
     }

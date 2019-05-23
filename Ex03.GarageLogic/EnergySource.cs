@@ -10,9 +10,9 @@ namespace Ex03.GarageLogic
         protected readonly float r_Capacity;
         protected float m_Amount;
 
-        public EnergySource(float i_CurrentAmountEnergy, float i_TotalAmountOfEnergy)
+        public EnergySource( float i_TotalAmountOfEnergy)
         {
-            m_Amount = i_CurrentAmountEnergy;
+           // m_Amount = i_CurrentAmountEnergy;
             r_Capacity = i_TotalAmountOfEnergy;
         }
 

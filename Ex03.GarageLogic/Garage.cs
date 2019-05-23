@@ -24,7 +24,6 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_numOfVehicle));
             }
-            FindByState.Invoke()
             m_Clients[i_numOfVehicle].State = i_NewState;
         }
         public List<string> FindByState(eState i_State)
@@ -57,14 +56,14 @@ namespace Ex03.GarageLogic
             return plates;
         }
 
-        public void Add(ClientCard i_ToAdd)
-        {
-            if (m_Clients.ContainsKey(i_ToAdd.Vehicle.LicenceNumber))
-            {
-                throw new InvalidOperationException("Error: Vehicle already exsists.");
-            }
+        //public void Add(ClientCard i_ToAdd)
+        //{
+        //    if (m_Clients.ContainsKey(i_ToAdd.Vehicle.LicenceNumber))
+        //    {
+        //        throw new InvalidOperationException("Error: Vehicle already exsists.");
+        //    }
 
-            m_Clients.Add(i_ToAdd.Vehicle.LicenceNumber, i_ToAdd);
-        }
+        //    m_Clients.Add(i_ToAdd.Vehicle.LicenceNumber, i_ToAdd);
+        //}
     }
 }
