@@ -18,10 +18,11 @@ namespace Ex03.ConsoleUI
             showVehicleData,
             exit
         };
-        UI m_ui = new UI();
+        UI m_UI = new UI();
+        Garage m_Garage = new Garage();
+        Alocator m_Alocator = new Alocator();
         private bool m_ToExitProgram = false;
 
-        //Garage m_Garage = new Garage();
 
         public void Run()
         {
@@ -29,13 +30,15 @@ namespace Ex03.ConsoleUI
             eMenuChoice choiceAsEnum;
             while(!m_ToExitProgram)
             {
-                m_ui.PrintMenu();
-                userChoice = m_ui.GetKeyFromUser();
+                //int choiceAsint;
+                m_UI.PrintMenu();
+                userChoice = m_UI.GetKeyFromUser();
+                //int.TryParse(userChoice, out choiceAsint);
                 choiceAsEnum = (eMenuChoice)Enum.Parse(typeof(eMenuChoice), userChoice);
                 switch (choiceAsEnum)
                 {
                     case eMenuChoice.AddVehichle:
-                        //do something
+                        addNewVehicle();
                         break;
                     case eMenuChoice.chargeElecVehicle:
                         //do something
@@ -60,6 +63,13 @@ namespace Ex03.ConsoleUI
                         break;
                 }
             }
+        }
+        private void addNewVehicle()
+        {
+            ClientCard NewClientCard; 
+            List <String> userData =  m_UI.GetDataFromUser();
+            NewClientCard = m_Alocator.CreateNewCreditCard(userData);
+            m_Garage.Add(NewClientCard); 
         }
     }
 }

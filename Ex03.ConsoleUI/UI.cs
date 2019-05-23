@@ -59,7 +59,6 @@ namespace Ex03.ConsoleUI
           int vehichleTypeUserChoice;
           int energyTypeUserChoice;
 
-
             Console.WriteLine(@"please choose vehicle type : 
             1. Car 
             2.Motor-Cycle
@@ -104,24 +103,45 @@ namespace Ex03.ConsoleUI
 
             switch (vehichleTypeUserChoice)
             {
-                //separte each case to function !!!!!!!
+                //separte each case to function !!!!!
                 case 1:
                     //getCarSpecificData();
-                    string chooseColorOption;
+                    string chooseColorOptionAsString;
                     int colorOption;
+
+                    string NumberOfDoorsAsString;
+                    int choosenNumberOfDoors;
+
                     string chooseColor = string.Format(@"enter color to the car :
                     1.red
                     2.blue
                     3.black
                     4.grey");
+
+                    string chooseNumberOfDoors = string.Format(@"enter number of doors to the car :");
+                    //1.two
+                    //2.three
+                    //3.four
+                    //4.five");
+
                     Console.WriteLine(chooseColor);
 
-                    chooseColorOption = Console.ReadLine();
+                    chooseColorOptionAsString = Console.ReadLine();
                     while (!int.TryParse(engineType, out colorOption) || !inRange(colorOption, 1, 4))
                     {
-                        chooseColorOption= Console.ReadLine();
+                        chooseColorOptionAsString = Console.ReadLine();
                     }
 
+                    Console.WriteLine(chooseNumberOfDoors);
+
+                    NumberOfDoorsAsString = Console.ReadLine();
+                    while (!int.TryParse(engineType, out choosenNumberOfDoors))// || !inRange(choosenNumberOfDoors, 1, 4))
+                    {
+                        NumberOfDoorsAsString = Console.ReadLine();
+                    }
+                    
+                    userData.Add(chooseColorOptionAsString);//color
+                    userData.Add(NumberOfDoorsAsString);  //numOfDoors
 
                     break;
                 case 2:
@@ -132,6 +152,7 @@ namespace Ex03.ConsoleUI
                     break; 
             }
 
+            return userData; 
 
         }
 
