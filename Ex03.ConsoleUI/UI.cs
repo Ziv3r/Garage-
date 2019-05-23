@@ -42,9 +42,8 @@ namespace Ex03.ConsoleUI
             return res.ToString();
         }
 
-        public List<string> GetDataFromUser()
+        public List<string> GetVehicleCommonData()
         {
-            string vehicleType;
             string engineType;
             string LicenceNumber;
             string modelName;
@@ -56,26 +55,13 @@ namespace Ex03.ConsoleUI
             string[] vehicleTypes = new string [3]{ "car", "Motor-Cycle", "Track" };
             string[] engineTypes = new string[2] { "gas", "electric" };
            
-          int vehichleTypeUserChoice;
-          int energyTypeUserChoice;
-
-            Console.WriteLine(@"please choose vehicle type : 
-            1. Car 
-            2.Motor-Cycle
-            3.Track ");
-
-            vehicleType = Console.ReadLine();
-
-            while(!int.TryParse(vehicleType,out vehichleTypeUserChoice) || !inRange(vehichleTypeUserChoice, 1,3))
-            {
-                vehicleType = Console.ReadLine();
-            }
 
             Console.WriteLine(@"please choose engine type :
             1.gas 
             2.electric");
 
             engineType = Console.ReadLine();
+            int energyTypeUserChoice;
 
             while (!int.TryParse(engineType, out energyTypeUserChoice) || !inRange(energyTypeUserChoice, 1,2))
             {
@@ -94,65 +80,65 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("please enter owner phone");
             ownerPhone = Console.ReadLine();
 
-            userData.Add(vehicleTypes[vehichleTypeUserChoice]);
             userData.Add(engineTypes[energyTypeUserChoice]);
             userData.Add(LicenceNumber);
             userData.Add(modelName);
             userData.Add(ownerName);
             userData.Add(ownerPhone);
 
-            switch (vehichleTypeUserChoice)
-            {
-                //separte each case to function !!!!!
-                case 1:
-                    //getCarSpecificData();
-                    string chooseColorOptionAsString;
-                    int colorOption;
+            return userData;
 
-                    string NumberOfDoorsAsString;
-                    int choosenNumberOfDoors;
+            //switch (vehichleTypeUserChoice)
+            //{
+            //    //separte each case to function !!!!!
+            //    case 1:
+            //        //getCarSpecificData();
+            //        string chooseColorOptionAsString;
+            //        int colorOption;
 
-                    string chooseColor = string.Format(@"enter color to the car :
-                    1.red
-                    2.blue
-                    3.black
-                    4.grey");
+            //        string NumberOfDoorsAsString;
+            //        int choosenNumberOfDoors;
 
-                    string chooseNumberOfDoors = string.Format(@"enter number of doors to the car :");
-                    //1.two
-                    //2.three
-                    //3.four
-                    //4.five");
+            //        string chooseColor = string.Format(@"enter color to the car :
+            //        1.red
+            //        2.blue
+            //        3.black
+            //        4.grey");
 
-                    Console.WriteLine(chooseColor);
+            //        string chooseNumberOfDoors = string.Format(@"enter number of doors to the car :");
+            //        //1.two
+            //        //2.three
+            //        //3.four
+            //        //4.five");
 
-                    chooseColorOptionAsString = Console.ReadLine();
-                    while (!int.TryParse(engineType, out colorOption) || !inRange(colorOption, 1, 4))
-                    {
-                        chooseColorOptionAsString = Console.ReadLine();
-                    }
+            //        Console.WriteLine(chooseColor);
 
-                    Console.WriteLine(chooseNumberOfDoors);
+            //        chooseColorOptionAsString = Console.ReadLine();
+            //        while (!int.TryParse(engineType, out colorOption) || !inRange(colorOption, 1, 4))
+            //        {
+            //            chooseColorOptionAsString = Console.ReadLine();
+            //        }
 
-                    NumberOfDoorsAsString = Console.ReadLine();
-                    while (!int.TryParse(engineType, out choosenNumberOfDoors))// || !inRange(choosenNumberOfDoors, 1, 4))
-                    {
-                        NumberOfDoorsAsString = Console.ReadLine();
-                    }
-                    
-                    userData.Add(chooseColorOptionAsString);//color
-                    userData.Add(NumberOfDoorsAsString);  //numOfDoors
+            //        Console.WriteLine(chooseNumberOfDoors);
 
-                    break;
-                case 2:
-                    //getMotorCycleSpecificData();
-                    break;
-                case 3:
-                    //getTrackSpecificData();
-                    break; 
-            }
+            //        NumberOfDoorsAsString = Console.ReadLine();
+            //        while (!int.TryParse(engineType, out choosenNumberOfDoors))// || !inRange(choosenNumberOfDoors, 1, 4))
+            //        {
+            //            NumberOfDoorsAsString = Console.ReadLine();
+            //        }
 
-            return userData; 
+            //        userData.Add(chooseColorOptionAsString);//color
+            //        userData.Add(NumberOfDoorsAsString);  //numOfDoors
+
+            //        break;
+            //    case 2:
+            //        //getMotorCycleSpecificData();
+            //        break;
+            //    case 3:
+            //        //getTrackSpecificData();
+            //        break; 
+            //}
+
 
         }
 
@@ -162,7 +148,7 @@ namespace Ex03.ConsoleUI
         }
 
         //  last commit:
-        Type GetVehicleTypeFromUser(List<string> i_SupportedVehicles)
+        public Type GetVehicleTypeFromUser(List<string> i_SupportedVehicles)
         {
             Type toReturn;
             int i = 1;
@@ -172,8 +158,16 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("{0}. {1}", i++, vehicle);
             }
             string choice;
-            while( choice.Equals("1") || choice.Equals("2"))
-                Console.ReadLine();
+
+            choice = Console.ReadLine();
+            int vehicleChoice;
+
+            while (!int.TryParse(choice, out vehicleChoice) || !inRange(vehicleChoice, 1, i_SupportedVehicles.Count);
+            {
+                choice = Console.ReadLine();
+            }
+
+            toReturn = Type.GetType(i_SupportedVehicles[vehicleChoice - 1]);
         }
 
     }
