@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
             : this(i_modelName,
                   i_LicenseNumber,
                   i_VehicleType,
-                  i_VehicleType Gas.eFuelType.Octan96,
+                  i_VehicleType == EnergySource.eEnergySourceType.Gas ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
                   50f,//i_CurrentAmountEnergy,
                   k_MaxLitersOfFeul,
                   i_CarColor,

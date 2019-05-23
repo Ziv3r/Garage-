@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         public Electric(float i_Amount, float i_Max) : base(i_Amount, i_Max) { }
 
 
-        public override void FillEnergy(float i_AmountToFillUp, Gas.eFuelType i_Type = Gas.eFuelType.Volt)
+        public override void FillEnergy(float i_AmountToFillUp, Gas.eFuelType i_Type = Gas.eFuelType.None)
         {
             if (i_AmountToFillUp + m_Amount > r_Capacity)
             {

@@ -8,6 +8,7 @@ namespace Ex03.GarageLogic
     {
         private const int k_NumOfWheels = 2;
         private const float k_MaxAirPressure = 33f;
+        private const float k_MaxAmountOfFeul = 8f;
 
         enum eLicenceType
         {
@@ -28,7 +29,11 @@ namespace Ex03.GarageLogic
                 i_ModelName,
                 i_LicenceNumber,
                 i_VehicleType,
-
+                i_VehicleType == EnergySource.eEnergySourceType.Gas ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
+                i_CurrentAmountEnergy,
+                k_MaxAmountOfFeul,
+                i_LicenceType,
+                i_EngineBlackSmith
                 )
         { }
         public MotorCycle(

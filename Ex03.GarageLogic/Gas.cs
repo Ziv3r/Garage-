@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     public class Gas : EnergySource
     {
-        public enum eFuelType { Soler, Octan95, Octan96, Octan98, Volt }
+        public enum eFuelType { Soler, Octan95, Octan96, Octan98, None }
 
         public readonly eFuelType r_EnergyType;
 
