@@ -66,10 +66,18 @@ namespace Ex03.ConsoleUI
         }
         private void addNewVehicle()
         {
-            ClientCard NewClientCard; 
-            List <String> userData =  m_UI.GetDataFromUser();
-            NewClientCard = m_Alocator.CreateNewCreditCard(userData);
-            m_Garage.Add(NewClientCard); 
+            List<string> supportedVehicles = m_Alocator.SupportedVehicles;
+            int vehicleIndexInList = m_UI.GetVehicleTypeFromUser(supportedVehicles);
+            List<string> nameAndPhoneFromUser = m_UI.GetClientCardParams();
+            List<string> vehiclesCommonData = m_UI.GetVehicleCommonData();
+            ClientCard NewClientCard = m_Alocator.CreateNewClientCard(
+                supportedVehicles[vehicleIndexInList].GetType(),
+                nameAndPhoneFromUser,
+                vehiclesCommonData
+                );
+
+            m_Garage.Add(NewClientCard);
+           
         }
     }
 }

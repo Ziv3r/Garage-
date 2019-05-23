@@ -6,13 +6,13 @@ namespace Ex03.GarageLogic
 {
     public class Alocator
     {
-        ClientCard newClientCard ; 
-        //how should we know which data in each string in the list ? 
-        public ClientCard CreateNewCreditCard(List<string> i_userData)
+        public  List<string> m_SupportedVehicles;
+        ClientCard newClientCard;
+        // how should we know which data in each string in the list ? 
+        public ClientCard CreateNewClientCard(List<string> i_userData)
         {
-
             string userVehicleChoice = i_userData[0];
-            string engineType = i_userData[1];          //need to send enum 
+            string engineType = i_userData[1];          // need to send enum 
             string licenceNumber = i_userData[2];
             string modelName = i_userData[3];
             string ownerName = i_userData[4];
@@ -38,11 +38,19 @@ namespace Ex03.GarageLogic
                 case "Track":
                     newClientCard = new ClientCard(ownerName, ownerPhone, new Track(modelName, licenceNumber, engineType));
                     break;
-
-
             }
 
             return newClientCard; 
+        }
+
+        public void InitSupportedVehicle()
+        {
+            m_SupportedVehicles = new List<string> { "Car", "Track", "MotorCycle" };
+        }
+
+        public List<string> SupportedVehicles
+        {
+            get { return m_SupportedVehicles; }
         }
     }
 }

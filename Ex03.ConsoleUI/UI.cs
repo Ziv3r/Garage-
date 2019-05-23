@@ -160,6 +160,21 @@ namespace Ex03.ConsoleUI
         {
             return i_NumToCheck >= min && i_NumToCheck <= max;
         }
-        
+
+        //  last commit:
+        Type GetVehicleTypeFromUser(List<string> i_SupportedVehicles)
+        {
+            Type toReturn;
+            int i = 1;
+            Console.WriteLine("Choose Vehicle To Add:");
+            foreach(string vehicle in i_SupportedVehicles)
+            {
+                Console.WriteLine("{0}. {1}", i++, vehicle);
+            }
+            string choice;
+            while( choice.Equals("1") || choice.Equals("2"))
+                Console.ReadLine();
+        }
+
     }
 }
