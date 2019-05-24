@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ex03.GarageLogic
+namespace Ex03.GarageLogic 
 {
     public class Car : Vehicle
     {
@@ -20,22 +20,18 @@ namespace Ex03.GarageLogic
         private eColor m_CarColor ;
         private int m_NumDoors;
 
-        //static Car()
-        //{
-        //    sr_VehicleParams.Add("Enter Vehicle Color", "Color");
-        //    sr_VehicleParams.Add("Enter Number Of Doors", "NumOfDoors");
-        //}
-
-        //public Car(string i_VehicleType, string i_LicenceNum, )
-        //    : base(i_VehicleType, i_LicenceNum)
-        //{}
-     
-
+        static Car()
+        {
+            s_VehicleParams = new Dictionary<string, string>();
+            s_VehicleParams.Add("Enter Number Of Doors", "SetNumOfDoors");
+            s_VehicleParams.Add("Enter Vehicle Color", "SetColor");
+         
+        }
 
         public Car(string i_modelName,
             string i_LicenseNumber,
             string i_VehicleType,
-            float i_CurrentAmountEnergy
+            string i_CurrentAmountEnergy
             )
             : this(i_modelName,
                   i_LicenseNumber,
@@ -50,7 +46,7 @@ namespace Ex03.GarageLogic
             string i_LicenseNumber,
             string i_VehicleType,
             Gas.eFuelType i_fuelType,
-            float i_CurrentAmountEnergy,
+            string i_CurrentAmountEnergy,
             float i_TotalAmountOfEnergy
             )
            : base(i_modelName,
@@ -76,6 +72,15 @@ namespace Ex03.GarageLogic
             set { m_NumDoors = value; }
         }
 
+        public void SetColor(string i_Color)
+        {
+            m_CarColor = (eColor)Enum.Parse(typeof(eColor), i_Color.ToLower());
+        }
+
+        public void SetNumOfDoors(string i_NumOfDoors)
+        {
+            m_NumDoors = int.Parse(i_NumOfDoors);
+        }
 
         public override string ToString()
         {

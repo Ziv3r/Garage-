@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     public abstract class EnergySource
     {
-        public enum eEnergySourceType { Electirc = 1, Gas = 2 }
+        public enum eEnergySourceType { Electirc, Gas };
         protected readonly float r_Capacity;
         protected float m_Amount;
 

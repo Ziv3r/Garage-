@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         private float m_MaxVal;
         private float m_MinVal;
         public ValueOutOfRangeException(float i_MaxVal, float i_MinVal)
-            : base(string.Format("an error occured while trying to fill more then {0}, or less then {1} liters",i_MaxVal, i_MinVal))
+            : base(string.Format("Error:Value must be between {0} to {1}",i_MinVal, i_MaxVal))
         { 
             m_MaxVal = i_MaxVal;
             m_MinVal = i_MinVal;

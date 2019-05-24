@@ -28,7 +28,7 @@ namespace Ex03.ConsoleUI
         {
             string userChoice;
             eMenuChoice choiceAsEnum;
-            while(!m_ToExitProgram)
+            while (!m_ToExitProgram)
             {
                 m_UI.PrintMenu();
                 userChoice = m_UI.GetKeyFromUser();
@@ -39,19 +39,19 @@ namespace Ex03.ConsoleUI
                         addNewVehicle();
                         break;
                     case eMenuChoice.chargeElecVehicle:
-                        //do something
+                        //
                         break;
                     case eMenuChoice.fuelGasVehicle:
                         //do something
                         break;
                     case eMenuChoice.inflateWheels:
-                        //do something
+                        //
                         break;
                     case eMenuChoice.showLicenceNumByState:
                         //do something
                         break;
                     case eMenuChoice.showLicenceNumOfAll:
-                        //do something
+                        m_Garage.GetAllPlates();///to box eith printing
                         break;
                     case eMenuChoice.showVehicleData:
                         //do something
@@ -64,13 +64,25 @@ namespace Ex03.ConsoleUI
         }
         private void addNewVehicle()
         {
+            bool success = false;
+
             List<string> supportedVehicles = m_Alocator.SupportedVehicles;
             Type vehichleType = m_UI.GetVehicleTypeFromUser(supportedVehicles);
-            //List<string> nameAndPhoneFromUser = m_UI.GetClientCardParams();
-            List<string> vehiclesCommonData = m_UI.GetVehicleCommonData();
-            ClientCard NewClientCard = m_Alocator.CreateNewClientCard(vehichleType, vehiclesCommonData);
-            m_UI.GetRelevantDataFromUser(NewClientCard.Vehicle);
-           
+            while(!success)
+            {
+                try
+                {
+                    List<string> vehiclesCommonData = m_UI.GetVehicleCommonData();  
+                    ClientCard NewClientCard = m_Alocator.CreateNewClientCard(vehichleType, vehiclesCommonData);
+                    m_UI.GetRelevantDataFromUser(NewClientCard.Vehicle);
+                    m_Garage.Add(NewClientCard);
+                    success = true;
+                }
+                catch (Exception ex)
+                {
+                   m_UI.Print(ex.Message);
+                }
+            }
         }
     }
 }
