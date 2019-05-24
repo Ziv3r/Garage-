@@ -18,5 +18,11 @@ namespace Ex03.GarageLogic
 
             m_Amount += i_AmountToFillUp;
         }
+
+        public override string ToString()
+        {
+            return string.Format(@"Max Amount Of Time(minutes): {0}
+Current Amount Of Time(minutes): {1}", r_Capacity, m_Amount);
+        }
     }
 }
