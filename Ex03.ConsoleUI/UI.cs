@@ -25,10 +25,21 @@ namespace Ex03.ConsoleUI
         4. Charge an electric vehicle.
         5. Display full details of a vehicle.
 ";
+        private const string k_toContinue = "Please press any key to continue"; 
 
         public string GoodByeMessage
         {
             get { return k_goodByeMessage; }
+        }
+        public void ToContinueMessage()
+        {
+            Console.WriteLine(k_toContinue);
+            Console.ReadLine();
+        }
+        public void VehicleAddedSuccessfully(Type i_VehicleType)
+        {
+            Console.WriteLine(string.Format("Vehicle from type {0} added succesfully", i_VehicleType.Name));
+            ToContinueMessage();
         }
 
         public void PrintMenu()
@@ -135,7 +146,7 @@ namespace Ex03.ConsoleUI
         public void printByLicenceCommands()
         {
             Console.Clear();
-            Console.WriteLine(k_MainMenuText);
+            Console.WriteLine(k_MenuByLicence);
         }
 
         private bool inRange(int i_NumToCheck, float i_Min, float i_Max)
@@ -176,7 +187,7 @@ namespace Ex03.ConsoleUI
         public string GetState()
         {
             string state;
-            Console.WriteLine("Which state would you like to search for?");
+            Console.WriteLine("Please enter state name?");
             state = Console.ReadLine();
             return state;
         }
@@ -210,7 +221,7 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine(str);
             }
-            Console.ReadLine();
+            ToContinueMessage();
         }
     }
 }

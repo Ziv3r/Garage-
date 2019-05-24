@@ -7,6 +7,7 @@ namespace Ex03.ConsoleUI
 {
     class GarageManager
     {
+        
         public enum eMenuChoice : int
         {
             AddVehichle = 0,
@@ -72,6 +73,7 @@ namespace Ex03.ConsoleUI
                     ClientCard NewClientCard = m_Alocator.CreateNewClientCard(vehichleType, vehiclesCommonData);
                     m_UI.GetRelevantDataFromUser(NewClientCard.Vehicle);
                     m_Garage.Add(NewClientCard);
+                    m_UI.VehicleAddedSuccessfully(vehichleType);
                     success = true;
                 }
                 catch (Exception ex)
@@ -84,12 +86,26 @@ namespace Ex03.ConsoleUI
         {
             List<string> LicenceNumbers = m_Garage.GetAllPlates();
             m_UI.PrintList(LicenceNumbers);
+            m_UI.ToContinueMessage();
         }
         private void showLicenceNumByState()
         {
-            string state = m_UI.GetState();
-            List<string> LicenceByState = m_Garage.FindByState(state);
-            m_UI.PrintList(LicenceByState);
+            bool succesFindState = false;
+            while (!succesFindState)
+            {
+                try
+                {
+                    string state = m_UI.GetState();
+                    List<string> LicenceByState = m_Garage.FindByState(state);
+                    m_UI.PrintList(LicenceByState);
+                    succesFindState = true;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
         }
 
         private void CommandByLicenceNumber()
@@ -121,9 +137,20 @@ namespace Ex03.ConsoleUI
 
         private void modifyVehicleState(string i_LicenceNumber)
         {
-            string newState = m_UI.GetState();
-
-            m_Garage.ChangeVehicleState(i_LicenceNumber, newState);
+            bool successChangeState = false;
+            while (!successChangeState)
+            {
+                try
+                {
+                    string newState = m_UI.GetState();
+                    m_Garage.ChangeVehicleState(i_LicenceNumber, newState);
+                    successChangeState = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
         private void inflateWheels(string i_LicenceNumber)
         {
@@ -134,11 +161,11 @@ namespace Ex03.ConsoleUI
         {
             string amount;
             string fuelType;
-            m_UI.getDataForFillEnergy(i_ClientCard.Vehicle.Engine, out amount,out fuelType) ;
-            i_ClientCard.Vehicle.FillEnergy(amount , fuelType);
+            m_UI.getDataForFillEnergy(i_ClientCard.Vehicle.Engine, out amount, out fuelType);
+            i_ClientCard.Vehicle.FillEnergy(amount, fuelType);
         }
-        
-            private void showVehicleData(string i_LicenceNumber)
+
+        private void showVehicleData(string i_LicenceNumber)
         {
             m_Garage.printVehicleData(i_LicenceNumber);
         }
