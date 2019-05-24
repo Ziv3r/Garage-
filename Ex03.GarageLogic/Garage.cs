@@ -20,14 +20,31 @@ namespace Ex03.GarageLogic
 
         public void ChangeVehicleState(string i_LicenceNumber, string i_NewState)
         {
-            eState enumState = (eState)Enum.Parse(typeof(eState), i_NewState);
-
             if (!m_Clients.ContainsKey(i_LicenceNumber))
             {
                 throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_LicenceNumber));
             }
-            m_Clients[i_LicenceNumber].State = enumState;
+
+            try
+            {
+                int index = 0;
+                foreach (string status in ClientCard.VehicleStatusSet)
+                {
+                    if (status.Equals(i_NewState.ToLower()))
+                    {
+                        m_Clients[i_LicenceNumber].State = (eState)index;
+                    }
+
+                    index++;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException(string.Format(@"Error: {0} is not a valid status of vehicle.
+status must be on of the following: on work, finished, payed", i_NewState),ex);
+            }
         }
+
         public List<string> FindByState(string i_State)
         {
             eState enumState;
@@ -35,10 +52,11 @@ namespace Ex03.GarageLogic
             {
                 enumState = (eState)Enum.Parse(typeof(eState), i_State);
             }
-            catch
+            catch(Exception ex)
             {
-                throw new FormatException(string.Format("Error: {0} is not a valid state.", i_State));
+                throw new FormatException(string.Format("Error: {0} is not a valid state.", i_State), ex);
             }
+
             List<string> listByState = new List<string>();
             foreach(KeyValuePair<string, ClientCard> pair in m_Clients)
             {
