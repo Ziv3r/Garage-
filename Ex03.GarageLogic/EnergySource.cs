@@ -6,13 +6,13 @@ namespace Ex03.GarageLogic
 {
     public abstract class EnergySource
     {
-        public enum eEnergySourceType { Electirc, Gas };
+        public enum eEnergySourceType { Electric, Gas };
         protected readonly float r_Capacity;
         protected float m_Amount;
 
-        public EnergySource( float i_TotalAmountOfEnergy)
+        public EnergySource( float i_TotalAmountOfEnergy, float i_Amount)
         {
-           // m_Amount = i_CurrentAmountEnergy;
+            m_Amount = i_Amount;
             r_Capacity = i_TotalAmountOfEnergy;
         }
 

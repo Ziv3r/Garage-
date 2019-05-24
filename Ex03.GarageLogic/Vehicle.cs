@@ -6,10 +6,10 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        string m_ModelName;
-        string m_LicenseNumber;
-        List<Wheel> m_VehicleWheels = null;
-        EnergySource m_EnergySource;
+        private string m_ModelName;
+        private string m_LicenseNumber;
+        private List<Wheel> m_VehicleWheels = null;
+        protected EnergySource m_EnergySource;
         public static Dictionary<string, string> s_VehicleParams;
 
         public Vehicle(
@@ -17,7 +17,6 @@ namespace Ex03.GarageLogic
             string i_LicenseNumber,
             int i_NumberOfWheels,
             float i_MaxAirPreasure,
-            int i_NumOfWheels,
             string i_VehicleType,
             Gas.eFuelType i_fuelType,
             string i_CurrentAmountEnergy,
@@ -36,7 +35,7 @@ namespace Ex03.GarageLogic
             catch(Exception ex)
             {
                 throw new FormatException(string.Format("Error: The field \"{0}\" was not in the right format",
-                    currAmountOfEnergy == -1 ? "Fuel Amount" : "Energy Type"), ex);
+                    currAmountOfEnergy == -1 ? "Fuel Amount" : "Engine Type"), ex);
             }
 
             if (type == EnergySource.eEnergySourceType.Gas)
