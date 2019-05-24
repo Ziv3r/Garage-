@@ -22,13 +22,15 @@ namespace Ex03.GarageLogic
             string i_ModelName,
             string i_LicenseNumber,
             string i_VehicleType,
-            string i_CurrentAmountEnergy
+            string i_CurrentAmountEnergy,
+            string i_WheelManufactor
             ) : this(
                 i_ModelName,
                 i_LicenseNumber,
                 i_VehicleType,
                 i_VehicleType == "gas" ? Gas.eFuelType.Soler : Gas.eFuelType.None,
-                i_CurrentAmountEnergy
+                i_CurrentAmountEnergy,
+                i_WheelManufactor
                 )
         { }
         public Truck(
@@ -36,7 +38,8 @@ namespace Ex03.GarageLogic
             string i_LicenseNumber,
             string i_VehicleType,
             Gas.eFuelType i_fuelType,
-            string i_CurrentAmountEnergy
+            string i_CurrentAmountEnergy,
+            string i_WheelManufactor
             ) : base(
                 i_modelName,
                 i_LicenseNumber,
@@ -45,7 +48,8 @@ namespace Ex03.GarageLogic
                 i_VehicleType,
                 i_fuelType,
                 i_CurrentAmountEnergy,
-                k_MaxAmountOfFuel
+                k_MaxAmountOfFuel,
+                i_WheelManufactor
                 )
         {
             if(base.m_EnergySource is Electric)

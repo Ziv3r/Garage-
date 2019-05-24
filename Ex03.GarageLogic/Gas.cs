@@ -11,16 +11,20 @@ namespace Ex03.GarageLogic
         public readonly eFuelType r_FuelType;
 
         public Gas(float i_Amount, float i_Max, eFuelType i_Type)
-            : base( i_Max, i_Amount)
+            : base(i_Max, i_Amount)
         {
             r_FuelType = i_Type;
         }
 
         public override void FillEnergy(float i_AmountToFillUp, eFuelType i_Type)
         {
+            if(i_Type != r_FuelType)
+            {
+                throw new ArgumentException(string.Format("Error:Fuel type does not much"));
+            }
             if (i_AmountToFillUp + m_Amount > r_Capacity)
             {
-                throw new ArgumentException("Error: cannot fill more then tank capacity");
+                throw new ValueOutOfRangeException(0, r_Capacity - m_Amount);
             }
 
             m_Amount += i_AmountToFillUp;

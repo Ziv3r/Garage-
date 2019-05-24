@@ -18,31 +18,37 @@ namespace Ex03.GarageLogic
             return m_Clients[i_LicenceNum];
         }
 
-        public void ChangeVehicleState(string i_numOfVehicle, eState i_NewState)
+        public void ChangeVehicleState(string i_LicenceNumber, string i_NewState)
         {
-            if(!m_Clients.ContainsKey(i_numOfVehicle))
-            {
-                throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_numOfVehicle));
-            }
-            m_Clients[i_numOfVehicle].State = i_NewState;
-        }
-        public List<string> FindByState(eState i_State)
-        {
-            if(!Enum.IsDefined(typeof(eState),i_State))
-            {
-                throw new ArgumentException(string.Format("Error: {0} is not a valid state.", i_State));
-            }
+            eState enumState = (eState)Enum.Parse(typeof(eState), i_NewState);
 
-            List<string> filteredClients = new List<string>();
+            if (!m_Clients.ContainsKey(i_LicenceNumber))
+            {
+                throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_LicenceNumber));
+            }
+            m_Clients[i_LicenceNumber].State = enumState;
+        }
+        public List<string> FindByState(string i_State)
+        {
+            eState enumState;
+            try
+            {
+                enumState = (eState)Enum.Parse(typeof(eState), i_State);
+            }
+            catch
+            {
+                throw new FormatException(string.Format("Error: {0} is not a valid state.", i_State));
+            }
+            List<string> listByState = new List<string>();
             foreach(KeyValuePair<string, ClientCard> pair in m_Clients)
             {
-                if(pair.Value.State == i_State)
+                if(pair.Value.State == enumState)
                 {
-                    filteredClients.Add(pair.Key);
+                    listByState.Add(pair.Key);
                 }
             }
 
-            return filteredClients;
+            return listByState;
         }
 
         public List<string> GetAllPlates()
@@ -64,6 +70,30 @@ namespace Ex03.GarageLogic
             }
 
             m_Clients.Add(i_ToAdd.Vehicle.LicenceNumber, i_ToAdd);
+        }
+
+        public void printVehicleData(string i_LicenceNum)
+        {
+            if (!m_Clients.ContainsKey(i_LicenceNum))
+            {
+                throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_LicenceNum));
+            }
+
+            m_Clients[i_LicenceNum].ToString();
+        }
+
+        public void inflateWheels(string i_LicenceNum)
+        {
+            checkLicenceExist(i_LicenceNum);
+            m_Clients[i_LicenceNum].Vehicle.FillToMax();    //add thie method to vehicle . 
+        }
+
+        private void checkLicenceExist(string i_LicenceNum)
+        {
+            if (!m_Clients.ContainsKey(i_LicenceNum))
+            {
+                throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_LicenceNum));
+            }
         }
     }
 }

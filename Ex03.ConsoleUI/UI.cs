@@ -10,17 +10,21 @@ namespace Ex03.ConsoleUI
     {
         private const string k_goodByeMessage = "Good Bye...";
         private const string k_MainMenuText =
-@"Please choose from the following options (1-9):
+@"Please choose from the following options (1-5):
         1. Add a new vehicle to garage.
         2. Display license plate numbers for all vehicles in the garage.
         3. Display license numbers for vehicles filtered by garage status.
-        4. Modify a vehicle's status.
-        5. Inflate a vehicle's wheels to maximum.
-        6. Refuel a gasoline-powered vehicle.
-        7. Charge an electric vehicle.
-        8. Display full details of a vehicle.
-        9. Quit.
+        4. Make an action for specific car by Licence number .
+        5. Quit.
         ";
+        private const string k_MenuByLicence =
+@"Please choose from the following options (1-5):
+        1. Modify a vehicle's status.
+        2. Inflate a vehicle's wheels to maximum.
+        3. Refuel a gasoline-powered vehicle.
+        4. Charge an electric vehicle.
+        5. Display full details of a vehicle.
+";
 
         public string GoodByeMessage
         {
@@ -57,8 +61,6 @@ namespace Ex03.ConsoleUI
             string ownerName;
             string ownerPhone;
 
-            bool successGetEnergyType = false;
-
             List<string> userData = new List<string>();
 
             string[] vehicleTypes = new string[3] { "car", "Motor-Cycle", "Track" };
@@ -67,22 +69,15 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(@"please choose engine type :
             1.gas 
             2.electric");
-
+            
             int energyTypeUserChoice = 0;
 
-            while (!successGetEnergyType)
+            engineType = Console.ReadLine();
+
+            while (!int.TryParse(engineType, out energyTypeUserChoice) && !inRange(energyTypeUserChoice, 1, 2))
             {
-                try
-                {
-                    engineType = Console.ReadLine();
-                    energyTypeUserChoice = int.Parse(engineType);
-                    inRange(energyTypeUserChoice, 1, 2);
-                    successGetEnergyType = true;
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                Console.WriteLine("enter 1 or 2");
+                engineType = Console.ReadLine();
             }
 
             Console.WriteLine("please enter Licence Number");
@@ -100,12 +95,16 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Enter current fuel amount:");
             string fuelAmount = Console.ReadLine();
 
+            Console.WriteLine("Enter wheels manufactor:");
+            string wheelsManufactor = Console.ReadLine();
+
             userData.Add(ownerName);
             userData.Add(ownerPhone);
             userData.Add(modelName);
             userData.Add(LicenceNumber);
             userData.Add(engineTypes[--energyTypeUserChoice]);
             userData.Add(fuelAmount);
+            userData.Add(wheelsManufactor);
 
             return userData;
         }
@@ -133,16 +132,15 @@ namespace Ex03.ConsoleUI
                 }
             }
         }
-
-        private void inRange(int i_NumToCheck, float i_Min, float i_Max)
+        public void printByLicenceCommands()
         {
-            bool isInRange;
-            isInRange = i_NumToCheck >= i_Min && i_NumToCheck <= i_Max;
+            Console.Clear();
+            Console.WriteLine(k_MainMenuText);
+        }
 
-            if (!isInRange)
-            {
-                throw new ValueOutOfRangeException(i_Max, i_Min);
-            }
+        private bool inRange(int i_NumToCheck, float i_Min, float i_Max)
+        {
+            return i_NumToCheck >= i_Min && i_NumToCheck <= i_Max;
         }
 
         public Type GetVehicleTypeFromUser(List<string> i_SupportedVehicles)
@@ -174,6 +172,45 @@ namespace Ex03.ConsoleUI
             }
 
             return Type.GetType(string.Format("Ex03.GarageLogic.{0}, Ex03.GarageLogic", i_SupportedVehicles[vehicleChoice - 1]));
+        }
+        public string GetState()
+        {
+            string state;
+            Console.WriteLine("Which state would you like to search for?");
+            state = Console.ReadLine();
+            return state;
+        }
+
+        public void getDataForFillEnergy(EnergySource i_EnergySource, out string o_Amount, out string o_FuelType)
+        {
+
+            Console.WriteLine("enter amount of energy you want to fill up");
+            o_Amount = Console.ReadLine();
+
+            if (i_EnergySource is Gas)
+            {
+                Console.WriteLine("choose fuel type:");
+                o_FuelType = Console.ReadLine();
+            }
+            else
+            {
+                o_FuelType = "None";
+            }
+
+        }
+        public string getLicenceNumber()
+        {
+            Console.WriteLine("please enter a licence number ?");
+            return (Console.ReadLine());
+        }
+
+        public void PrintList(List<string> i_ListToPrint)
+        {
+            foreach (string str in i_ListToPrint)
+            {
+                Console.WriteLine(str);
+            }
+            Console.ReadLine();
         }
     }
 }

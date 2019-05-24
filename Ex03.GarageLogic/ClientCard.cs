@@ -46,12 +46,7 @@ namespace Ex03.GarageLogic
 
         // methods:
 
-        public void InflateWheels(float i_Amount)
-        {
-            m_Vehicle.FillAirPressure(i_Amount);
-        }
-
-        public void FillEnergy(float i_Amount, string i_Type)
+        public void FillEnergy(string i_Amount, string i_Type)
         {
             m_Vehicle.FillEnergy(i_Amount, i_Type);
         }
