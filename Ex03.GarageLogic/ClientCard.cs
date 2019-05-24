@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
             set { m_OwnerName = value; }
         }
         
-        public static string[] VehicleStatusSet
+        public static List<string> VehicleStatusSet
         {
             get { return rs_VehicleStatusSet; }
         }

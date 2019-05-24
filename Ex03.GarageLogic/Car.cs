@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     {
         private const int k_NumOfWheels = 4;
         private const float k_MaxAirPressure = 31f;
-        private const float k_MaxLitersOfFeul = 8f;
+        private const float k_MaxLitersOfFeul =55f;
         private const float k_MaxAmountOfElectricJuice = 1.8f;
         public enum eColor
         {
@@ -38,9 +38,9 @@ namespace Ex03.GarageLogic
             : this(i_modelName,
                   i_LicenseNumber,
                   i_VehicleType,
-                  i_VehicleType == "gas" ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
+                  i_VehicleType == "Gas" ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
                   i_CurrentAmountEnergy,
-                  i_VehicleType == "gas" ? k_MaxLitersOfFeul : k_MaxAmountOfElectricJuice,
+                  i_VehicleType == "Gas" ? k_MaxLitersOfFeul : k_MaxAmountOfElectricJuice,
                   i_WheelManufactor
                   )
         { }

@@ -7,7 +7,7 @@ namespace Ex03.ConsoleUI
 {
     class GarageManager
     {
-        
+
         public enum eMenuChoice : int
         {
             AddVehichle = 0,
@@ -20,7 +20,8 @@ namespace Ex03.ConsoleUI
         {
             modifyState,
             inflateWheels,
-            fillEnergy,
+            fuelGasVehicle,
+            ChargeElectircCar,
             showVehicleData,
         };
 
@@ -86,7 +87,6 @@ namespace Ex03.ConsoleUI
         {
             List<string> LicenceNumbers = m_Garage.GetAllPlates();
             m_UI.PrintList(LicenceNumbers);
-            m_UI.ToContinueMessage();
         }
         private void showLicenceNumByState()
         {
@@ -100,7 +100,7 @@ namespace Ex03.ConsoleUI
                     m_UI.PrintList(LicenceByState);
                     succesFindState = true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -126,7 +126,10 @@ namespace Ex03.ConsoleUI
                 case eOptionsByLicence.inflateWheels:
                     inflateWheels(LicenceNumber);
                     break;
-                case eOptionsByLicence.fillEnergy:
+                case eOptionsByLicence.fuelGasVehicle:
+                    fillEnergy(CurrentVehicle);
+                    break;
+                case eOptionsByLicence.ChargeElectircCar:
                     fillEnergy(CurrentVehicle);
                     break;
                 case eOptionsByLicence.showVehicleData:
@@ -161,8 +164,22 @@ namespace Ex03.ConsoleUI
         {
             string amount;
             string fuelType;
-            m_UI.getDataForFillEnergy(i_ClientCard.Vehicle.Engine, out amount, out fuelType);
-            i_ClientCard.Vehicle.FillEnergy(amount, fuelType);
+            bool succesFillEnergy = false;
+
+            while (!succesFillEnergy)
+            {
+                try
+                {
+                    m_UI.getDataForFillEnergy(i_ClientCard.Vehicle.Engine, out amount, out fuelType);
+                    i_ClientCard.Vehicle.FillEnergy(amount, fuelType);
+                    succesFillEnergy = true;
+                }
+                catch (Exception ex)
+                {
+                    m_UI.Print(ex.Message);
+                }
+
+            }
         }
 
         private void showVehicleData(string i_LicenceNumber)
