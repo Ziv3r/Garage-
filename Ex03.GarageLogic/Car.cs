@@ -9,6 +9,7 @@ namespace Ex03.GarageLogic
         private const int k_NumOfWheels = 4;
         private const float k_MaxAirPressure = 31f;
         private const float k_MaxLitersOfFeul = 8f;
+        private const float k_MaxAmountOfElectricJuice = 1.8f;
         public enum eColor
         {
             red = 0, 
@@ -38,7 +39,7 @@ namespace Ex03.GarageLogic
                   i_VehicleType,
                   i_VehicleType == "gas" ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
                   i_CurrentAmountEnergy,
-                  k_MaxLitersOfFeul                  
+                  i_VehicleType == "gas" ? k_MaxLitersOfFeul : k_MaxAmountOfElectricJuice                 
                   )
         { }
 
@@ -53,14 +54,12 @@ namespace Ex03.GarageLogic
                   i_LicenseNumber,
                   k_NumOfWheels,
                   k_MaxAirPressure,
-                  k_NumOfWheels,
                   i_VehicleType,
                   i_fuelType,
                   i_CurrentAmountEnergy,
                   i_TotalAmountOfEnergy
                   )
-        {
-        }
+        {}
 
         public eColor Color
         {
@@ -84,7 +83,9 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            return string.Format("{0}\nThe car color is : {1}\nThe car has {2} doors ", base.ToString(), m_CarColor, m_NumDoors);
+            return string.Format(@"{0}
+Color: {1}
+Number of Doors: {2}", base.ToString(), m_CarColor, m_NumDoors);
         }
     }
 }
