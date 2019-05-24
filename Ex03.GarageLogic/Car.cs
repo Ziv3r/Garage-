@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ex03.GarageLogic 
+namespace Ex03.GarageLogic
 {
     public class Car : Vehicle
     {
@@ -12,13 +12,13 @@ namespace Ex03.GarageLogic
         private const float k_MaxAmountOfElectricJuice = 1.8f;
         public enum eColor
         {
-            red = 0, 
+            red = 0,
             blue,
-            black, 
-            grey 
+            black,
+            grey
         };
 
-        private eColor m_CarColor ;
+        private eColor m_CarColor;
         private int m_NumDoors;
 
         static Car()
@@ -26,20 +26,22 @@ namespace Ex03.GarageLogic
             s_VehicleParams = new Dictionary<string, string>();
             s_VehicleParams.Add("Enter Number Of Doors", "SetNumOfDoors");
             s_VehicleParams.Add("Enter Vehicle Color", "SetColor");
-         
+
         }
 
         public Car(string i_modelName,
             string i_LicenseNumber,
             string i_VehicleType,
-            string i_CurrentAmountEnergy
+            string i_CurrentAmountEnergy,
+            string i_WheelManufactor
             )
             : this(i_modelName,
                   i_LicenseNumber,
                   i_VehicleType,
                   i_VehicleType == "gas" ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
                   i_CurrentAmountEnergy,
-                  i_VehicleType == "gas" ? k_MaxLitersOfFeul : k_MaxAmountOfElectricJuice                 
+                  i_VehicleType == "gas" ? k_MaxLitersOfFeul : k_MaxAmountOfElectricJuice,
+                  i_WheelManufactor
                   )
         { }
 
@@ -48,7 +50,8 @@ namespace Ex03.GarageLogic
             string i_VehicleType,
             Gas.eFuelType i_fuelType,
             string i_CurrentAmountEnergy,
-            float i_TotalAmountOfEnergy
+            float i_TotalAmountOfEnergy,
+            string i_WheelManufactor
             )
            : base(i_modelName,
                   i_LicenseNumber,
@@ -57,9 +60,10 @@ namespace Ex03.GarageLogic
                   i_VehicleType,
                   i_fuelType,
                   i_CurrentAmountEnergy,
-                  i_TotalAmountOfEnergy
+                  i_TotalAmountOfEnergy,
+                  i_WheelManufactor
                   )
-        {}
+        { }
 
         public eColor Color
         {

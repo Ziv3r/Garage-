@@ -19,8 +19,7 @@ namespace Ex03.ConsoleUI
         {
             modifyState,
             inflateWheels,
-            fuelGasVehicle,
-            chargeElectricVehicle,
+            fillEnergy,
             showVehicleData,
         };
 
@@ -44,7 +43,7 @@ namespace Ex03.ConsoleUI
                         addNewVehicle();
                         break;
                     case eMenuChoice.showLicenceNumOfAll:
-                        m_Garage.GetAllPlates();
+                        showAllLicenceNumbers();
                         break;
                     case eMenuChoice.showLicenceNumByState:
                         showLicenceNumByState();
@@ -97,7 +96,7 @@ namespace Ex03.ConsoleUI
         {
             string userChoice;
             string LicenceNumber = m_UI.getLicenceNumber();
-            ClientCard CurrentVehicle = m_Garage.FindByLicenceNum(LicenceNumber);
+            ClientCard CurrentVehicle = m_Garage.FindByLicenceNum(LicenceNumber);   //try catch 
 
             m_UI.printByLicenceCommands();
             userChoice = m_UI.GetKeyFromUser();
@@ -115,7 +114,7 @@ namespace Ex03.ConsoleUI
                     fillEnergy(CurrentVehicle);
                     break;
                 case eOptionsByLicence.showVehicleData:
-                    showVehicleData(CurrentVehicle);
+                    showVehicleData(LicenceNumber);
                     break;
             }
         }
@@ -135,11 +134,9 @@ namespace Ex03.ConsoleUI
         {
             string amount;
             string fuelType;
-            string energyType = ().ToString();
-            m_UI.getDataForFillEnergy(i_ClientCard.Vehicle.EnergySource.getType(),out amount,out fuelType) ;
+            m_UI.getDataForFillEnergy(i_ClientCard.Vehicle.Engine, out amount,out fuelType) ;
             i_ClientCard.Vehicle.FillEnergy(amount , fuelType);
         }
-
         
             private void showVehicleData(string i_LicenceNumber)
         {

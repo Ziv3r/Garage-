@@ -29,14 +29,16 @@ namespace Ex03.GarageLogic
             string i_ModelName,
             string i_LicenceNumber,
             string i_VehicleType,
-            string i_CurrentAmountEnergy
+            string i_CurrentAmountEnergy,
+            string i_WheelManufactor
             ) : this(
                 i_ModelName,
                 i_LicenceNumber,
                 i_VehicleType,
                 i_VehicleType == "gas" ? Gas.eFuelType.Octan95 : Gas.eFuelType.None,
                 i_CurrentAmountEnergy,
-                i_VehicleType == "gas" ? k_MaxAmountOfFeul : k_MaxAmountOfElectricJuice
+                i_VehicleType == "gas" ? k_MaxAmountOfFeul : k_MaxAmountOfElectricJuice,
+                i_WheelManufactor
                 )
         { }
 
@@ -46,7 +48,8 @@ namespace Ex03.GarageLogic
             string i_VehicleType,
             Gas.eFuelType i_FuelType,
             string i_CurrentAmountEnergy,
-            float i_TotalAmountOfEnergy
+            float i_TotalAmountOfEnergy,
+            string i_WheelManufactor
             ) : base(
                 i_ModelName,
                 i_LicenseNumber,
@@ -55,7 +58,8 @@ namespace Ex03.GarageLogic
                 i_VehicleType,
                 i_FuelType,
                 i_CurrentAmountEnergy,
-                i_TotalAmountOfEnergy
+                i_TotalAmountOfEnergy,
+                i_WheelManufactor
                 )
         {}
 

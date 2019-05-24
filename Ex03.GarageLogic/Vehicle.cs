@@ -20,7 +20,8 @@ namespace Ex03.GarageLogic
             string i_VehicleType,
             Gas.eFuelType i_fuelType,
             string i_CurrentAmountEnergy,
-            float i_TotalAmountOfEnergy
+            float i_TotalAmountOfEnergy,
+            string i_WheelManufactor
             )
         {
             r_ModelName = i_modelName;
@@ -29,10 +30,10 @@ namespace Ex03.GarageLogic
             EnergySource.eEnergySourceType type;
             try
             {
-                 currAmountOfEnergy = float.Parse(i_CurrentAmountEnergy);
-                 type = (EnergySource.eEnergySourceType)Enum.Parse(typeof(EnergySource.eEnergySourceType), i_VehicleType);
+                currAmountOfEnergy = float.Parse(i_CurrentAmountEnergy);
+                type = (EnergySource.eEnergySourceType)Enum.Parse(typeof(EnergySource.eEnergySourceType), i_VehicleType);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new FormatException(string.Format("Error: The field \"{0}\" was not in the right format",
                     currAmountOfEnergy == -1 ? "Fuel Amount" : "Engine Type"), ex);
@@ -50,10 +51,15 @@ namespace Ex03.GarageLogic
             m_VehicleWheels = new List<Wheel>();
             for (int i = 0; i < i_NumberOfWheels; i++)
             {
-                m_VehicleWheels.Add(new Wheel(i_MaxAirPreasure));
+                m_VehicleWheels.Add(new Wheel(i_MaxAirPreasure, i_WheelManufactor));
             }
         }
 
+        public EnergySource Engine
+        {
+            get { return m_EnergySource; }
+
+        }
         public string LicenceNumber
         {
             get { return r_LicenseNumber; }
@@ -64,21 +70,22 @@ namespace Ex03.GarageLogic
             get { return s_VehicleParams; }
         }
         // Type is 0 or 1 - gas or electric
-        public void FillAirPressure(float i_ToFillUp)
+        public void FillToMax()
         {
             foreach (Wheel curWheel in m_VehicleWheels)
             {
-                curWheel.fill(i_ToFillUp);
+                curWheel.FillToMax();
             }
         }
-        public void FillEnergy(float i_Amount, string i_FuelType)
+        public void FillEnergy(string i_Amount, string i_FuelType)
         {
             try
             {
+                float amount = float.Parse(i_Amount);
                 Gas.eFuelType type = (Gas.eFuelType)Enum.Parse(typeof(Gas.eFuelType), i_FuelType);
-                m_EnergySource.FillEnergy(i_Amount, type);
+                m_EnergySource.FillEnergy(amount, type);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ArgumentException(string.Format("Error: \"{0}\" is not a valid type of feul.", i_FuelType), ex);
             }
@@ -92,7 +99,7 @@ Number Of Wheels: {2}
 Wheels Data:
 {3}
 Engine Data:
-{4}",r_ModelName, r_LicenseNumber, m_VehicleWheels.Count, m_VehicleWheels[0].ToString(), m_EnergySource.ToString());
+{4}", r_ModelName, r_LicenseNumber, m_VehicleWheels.Count, m_VehicleWheels[0].ToString(), m_EnergySource.ToString());
         }
     }
 }

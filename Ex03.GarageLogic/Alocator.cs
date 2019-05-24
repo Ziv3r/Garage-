@@ -17,16 +17,17 @@ namespace Ex03.GarageLogic
         //// ownerName, OwnerPhone, ModelName, LicenceNumber, EngineType, FuelAmount
         public ClientCard CreateNewClientCard(Type i_VehicleType, List<string> i_VehiclesCommonData)
         {
-          Vehicle newVehicle = null;
-        
+            Vehicle newVehicle = null;
+
             if (i_VehicleType.Equals(typeof(Car)))
             {
-               newVehicle = new Car(
-                   i_VehiclesCommonData[2],
-                   i_VehiclesCommonData[3],
-                   i_VehiclesCommonData[4],
-                   i_VehiclesCommonData[5]
-                   );
+                newVehicle = new Car(
+                    i_VehiclesCommonData[2],
+                    i_VehiclesCommonData[3],
+                    i_VehiclesCommonData[4],
+                    i_VehiclesCommonData[5],
+                    i_VehiclesCommonData[6]
+                    );
             }
             else if (i_VehicleType.Equals(typeof(Motorcycle)))
             {
@@ -34,7 +35,8 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[2],
                     i_VehiclesCommonData[3],
                     i_VehiclesCommonData[4],
-                    i_VehiclesCommonData[5]
+                    i_VehiclesCommonData[5],
+                    i_VehiclesCommonData[6]
                     );
             }
             else if (i_VehicleType.Equals(typeof(Truck)))
@@ -43,7 +45,8 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[2],
                     i_VehiclesCommonData[3],
                     i_VehiclesCommonData[4],
-                    i_VehiclesCommonData[5]
+                    i_VehiclesCommonData[5],
+                    i_VehiclesCommonData[6]
                     );
             }
 
@@ -63,10 +66,3 @@ namespace Ex03.GarageLogic
     }
 }
 
-
-//              userData.Add(vehicleTypes[vehichleTypeUserChoice]);
-//            userData.Add(engineTypes[energyTypeUserChoice]);
-//            userData.Add(LicenceNumber);
-//            userData.Add(modelName);
-//            userData.Add(ownerName);
-//            userData.Add(ownerPhone);
