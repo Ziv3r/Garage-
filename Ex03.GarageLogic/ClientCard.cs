@@ -6,12 +6,16 @@ namespace Ex03.GarageLogic
 {
     public class ClientCard
     {
+        private static readonly List<string> rs_VehicleStatusSet;
         private string m_OwnerName;
         private string m_OwnerCellPhone;
         private Vehicle m_Vehicle;
         private eState m_State = eState.onWork;
 
-
+        static ClientCard()
+        {
+            rs_VehicleStatusSet = new List<string> { "on work", "finished", "payed"};
+        }
         public ClientCard(string i_Name, string i_Phone, Vehicle i_Vehicle)
         {
             m_Vehicle = i_Vehicle;
@@ -25,7 +29,11 @@ namespace Ex03.GarageLogic
             get { return m_OwnerName; }
             set { m_OwnerName = value; }
         }
-
+        
+        public static string[] VehicleStatusSet
+        {
+            get { return rs_VehicleStatusSet; }
+        }
         public string OwnerCellPhone
         {
             get { return m_OwnerCellPhone; }
