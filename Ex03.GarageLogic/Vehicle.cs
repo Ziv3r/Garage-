@@ -6,8 +6,8 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private string m_ModelName;
-        private string m_LicenseNumber;
+        private readonly string r_ModelName;
+        private readonly string r_LicenseNumber;
         private List<Wheel> m_VehicleWheels = null;
         protected EnergySource m_EnergySource;
         public static Dictionary<string, string> s_VehicleParams;
@@ -23,8 +23,8 @@ namespace Ex03.GarageLogic
             float i_TotalAmountOfEnergy
             )
         {
-            m_ModelName = i_modelName;
-            m_LicenseNumber = i_LicenseNumber;
+            r_ModelName = i_modelName;
+            r_LicenseNumber = i_LicenseNumber;
             float currAmountOfEnergy = -1f;
             EnergySource.eEnergySourceType type;
             try
@@ -56,7 +56,7 @@ namespace Ex03.GarageLogic
 
         public string LicenceNumber
         {
-            get { return m_LicenseNumber; }
+            get { return r_LicenseNumber; }
         }
 
         public Dictionary<string, string> VehicleParamsSet
@@ -73,10 +73,26 @@ namespace Ex03.GarageLogic
         }
         public void FillEnergy(float i_Amount, string i_FuelType)
         {
-            // to check if parse throw exception or needed here
-            Gas.eFuelType type = (Gas.eFuelType)Enum.Parse(typeof(Gas.eFuelType), i_FuelType);
+            try
+            {
+                Gas.eFuelType type = (Gas.eFuelType)Enum.Parse(typeof(Gas.eFuelType), i_FuelType);
+                m_EnergySource.FillEnergy(i_Amount, type);
+            }
+            catch(Exception ex)
+            {
+                throw new ArgumentException(string.Format("Error: \"{0}\" is not a valid type of feul.", i_FuelType), ex);
+            }
+        }
 
-            m_EnergySource.FillEnergy(i_Amount, type);
+        public override string ToString()
+        {
+            return string.Format(@"Model Name: {0}
+Licence Plate Number: {1}
+Number Of Wheels: {2}
+Wheels Data:
+{3}
+Engine Data:
+{4}",r_ModelName, r_LicenseNumber, m_VehicleWheels.Count, m_VehicleWheels[0].ToString(), m_EnergySource.ToString());
         }
     }
 }

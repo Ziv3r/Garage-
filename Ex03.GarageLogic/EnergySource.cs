@@ -17,5 +17,9 @@ namespace Ex03.GarageLogic
         }
 
         public abstract void FillEnergy(float i_AmountToFillUp, Gas.eFuelType i_Type);
+
+      
     }
+
+
 }

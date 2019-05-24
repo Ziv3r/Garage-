@@ -8,12 +8,12 @@ namespace Ex03.GarageLogic
     {
         public enum eFuelType { Soler, Octan95, Octan96, Octan98, None }
 
-        public readonly eFuelType r_EnergyType;
+        public readonly eFuelType r_FuelType;
 
         public Gas(float i_Amount, float i_Max, eFuelType i_Type)
             : base( i_Max, i_Amount)
         {
-            r_EnergyType = i_Type;
+            r_FuelType = i_Type;
         }
 
         public override void FillEnergy(float i_AmountToFillUp, eFuelType i_Type)
@@ -24,6 +24,12 @@ namespace Ex03.GarageLogic
             }
 
             m_Amount += i_AmountToFillUp;
+        }
+        public override string ToString()
+        {
+            return string.Format(@"Max Amount Of Feul(liters): {0}
+Current Amount Of Fuel(liters): {1}
+Fuel Type: {2}", r_Capacity, m_Amount, r_FuelType);
         }
 
     }

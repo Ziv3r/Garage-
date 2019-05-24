@@ -72,5 +72,11 @@ namespace Ex03.GarageLogic
 
         }
 
+        public override string ToString()
+        {
+            return string.Format(@"{0}
+Carry hazarous cargo:{1}
+Cargo Volume: {2}", base.ToString(), v_IsCarringDangerCargo ? "Yes" : "No", m_CargoVolume);
+        }
     }
 }

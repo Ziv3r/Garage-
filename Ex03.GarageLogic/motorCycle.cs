@@ -92,8 +92,9 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            return string.Format("{0}\nThe Motor-Cycle has : {1} Engine Black Smith\nFor driving the Motor-Cycle you should have {2} Licence Type",
-                base.ToString(), m_EngineBlackSmith, m_LicenceType);
+            return string.Format(@"{0}
+Engine Volume: {1}
+Licence: {2}", base.ToString(), m_EngineBlackSmith, m_LicenceType);
         }
     }
 }
