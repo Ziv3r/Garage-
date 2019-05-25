@@ -48,12 +48,12 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(k_MainMenuText);
         }
 
-        public string GetKeyFromUser()
+        public string GetKeyFromUser(int i_Min, int i_Max)
         {
             int res;
-            while (!int.TryParse(Console.ReadLine(), out res))
+            while (!int.TryParse(Console.ReadLine(), out res) || !inRange(res, i_Min, i_Max))
             {
-                Console.WriteLine("Please enter number between 1-9");
+                Console.WriteLine("Please enter number between 1-5");
             }
             res--;
             return res.ToString();
@@ -149,7 +149,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(k_MenuByLicence);
         }
 
-        private bool inRange(int i_NumToCheck, float i_Min, float i_Max)
+        private bool inRange(int i_NumToCheck, int i_Min, int i_Max)
         {
             return i_NumToCheck >= i_Min && i_NumToCheck <= i_Max;
         }
@@ -187,18 +187,16 @@ namespace Ex03.ConsoleUI
         public string GetState()
         {
             string state;
-            Console.WriteLine("Please enter state name?");
+            Console.WriteLine("Please enter status");
             state = Console.ReadLine();
             return state;
         }
 
         public void getDataForFillEnergy(EnergySource i_EnergySource, out string o_Amount, out string o_FuelType)
         {
-
-            Console.WriteLine("enter amount of energy you want to fill up");
-            o_Amount = Console.ReadLine();
-
-            if (i_EnergySource is Gas)
+            o_Amount = string.Empty;
+            bool isGasVehicle = i_EnergySource is Gas;
+            if (isGasVehicle)
             {
                 Console.WriteLine("choose fuel type:");
                 o_FuelType = Console.ReadLine();
@@ -207,19 +205,34 @@ namespace Ex03.ConsoleUI
             {
                 o_FuelType = "None";
             }
+            while (o_Amount.Equals(string.Empty))
+            {
+                Console.WriteLine("enter amount of {0} to fill", isGasVehicle ? "fuel" : "minutes");
+                o_Amount = Console.ReadLine();
+            }
+
+            
+            
 
         }
         public string getLicenceNumber()
         {
-            Console.WriteLine("please enter a licence number ?");
+            Console.WriteLine("please enter a licence number");
             return (Console.ReadLine());
         }
 
         public void PrintList(List<string> i_ListToPrint)
         {
-            foreach (string str in i_ListToPrint)
+            if (i_ListToPrint.Count == 0)
             {
-                Console.WriteLine(str);
+                Console.WriteLine("--None--");
+            }
+            else
+            {
+                foreach (string str in i_ListToPrint)
+                {
+                    Console.WriteLine(str);
+                }
             }
                ToContinueMessage();
         }

@@ -10,12 +10,12 @@ namespace Ex03.GarageLogic
 
         public ClientCard FindByLicenceNum(string i_LicenceNum)
         {
-            if (!m_Clients.ContainsKey(i_LicenceNum))
+            if (m_Clients.ContainsKey(i_LicenceNum))
             {
-                throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_LicenceNum));
+                return m_Clients[i_LicenceNum];
             }
 
-            return m_Clients[i_LicenceNum];
+            throw new ArgumentException(string.Format("Error: Licence number \"{0}\" does not exist in the garage.", i_LicenceNum));
         }
 
         public void ChangeVehicleState(string i_LicenceNumber, string i_NewState)
@@ -25,38 +25,30 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_LicenceNumber));
             }
 
-            try
-            {
-                int index = 0;
-                foreach (string status in ClientCard.VehicleStatusSet)
-                {
-                    if (status.Equals(i_NewState.ToLower()))
-                    {
-                        m_Clients[i_LicenceNumber].State = (eState)index;
-                    }
+            m_Clients[i_LicenceNumber].State = statusToState(i_NewState);
+        }
 
-                    index++;
-                }
-            }
-            catch (Exception ex)
+        private eState statusToState(string i_Status)
+        {
+            int index = 0;
+            foreach (string status in ClientCard.VehicleStatusSet)
             {
-                throw new FormatException(string.Format(@"Error: {0} is not a valid status of vehicle.
-status must be on of the following: on work, finished, payed", i_NewState),ex);
+                if (status.Equals(i_Status.ToLower()))
+                {
+                    return (eState)index;
+                }
+
+                index++;
             }
+
+            throw new FormatException(string.Format(@"Error: {0} is not a valid status of vehicle.
+status must be on of the following: on work, finished, payed", i_Status));
         }
 
         public List<string> FindByState(string i_State)
         {
-            eState enumState;
-            try
-            {
-                enumState = (eState)Enum.Parse(typeof(eState), i_State);
-            }
-            catch(Exception ex)
-            {
-                throw new FormatException(string.Format("Error: {0} is not a valid state.", i_State), ex);
-            }
-
+            eState enumState = statusToState(i_State);
+         
             List<string> listByState = new List<string>();
             foreach(KeyValuePair<string, ClientCard> pair in m_Clients)
             {
@@ -84,26 +76,27 @@ status must be on of the following: on work, finished, payed", i_NewState),ex);
         {
             if (m_Clients.ContainsKey(i_ToAdd.Vehicle.LicenceNumber))
             {
-                throw new ArgumentException("Error: Vehicle already exsists.");
+                i_ToAdd.State = statusToState(ClientCard.VehicleStatusSet[(int)eState.onWork]);
+                throw new ArgumentException("Error: Vehicle already exsists. status modified to \"on work\"");
             }
 
             m_Clients.Add(i_ToAdd.Vehicle.LicenceNumber, i_ToAdd);
         }
 
-        public void printVehicleData(string i_LicenceNum)
+        public string GetVehicleData(string i_LicenceNum)
         {
             if (!m_Clients.ContainsKey(i_LicenceNum))
             {
                 throw new ArgumentException(string.Format("Error: Licence number {0} does not exist", i_LicenceNum));
             }
 
-            m_Clients[i_LicenceNum].ToString();
+            return m_Clients[i_LicenceNum].ToString();
         }
 
         public void inflateWheels(string i_LicenceNum)
         {
             checkLicenceExist(i_LicenceNum);
-            m_Clients[i_LicenceNum].Vehicle.FillToMax();    //add thie method to vehicle . 
+            m_Clients[i_LicenceNum].Vehicle.FillToMax();
         }
 
         private void checkLicenceExist(string i_LicenceNum)

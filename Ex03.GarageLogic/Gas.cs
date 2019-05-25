@@ -20,7 +20,7 @@ namespace Ex03.GarageLogic
         {
             if(i_Type != r_FuelType)
             {
-                throw new ArgumentException(string.Format("Error:Fuel type does not much"));
+                throw new ArgumentException(string.Format("Error:Fuel type does not much. fuel type must be {0}", r_FuelType));
             }
             if (i_AmountToFillUp + m_Amount > r_Capacity)
             {

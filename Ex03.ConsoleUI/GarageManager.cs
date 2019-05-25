@@ -37,7 +37,7 @@ namespace Ex03.ConsoleUI
             while (!m_ToExitProgram)
             {
                 m_UI.PrintMenu();
-                userChoice = m_UI.GetKeyFromUser();
+                userChoice = m_UI.GetKeyFromUser(1, Enum.GetValues(typeof(eOptionsByLicence)).Length);
                 choiceAsEnum = (eMenuChoice)Enum.Parse(typeof(eMenuChoice), userChoice);
                 switch (choiceAsEnum)
                 {
@@ -111,33 +111,75 @@ namespace Ex03.ConsoleUI
         private void CommandByLicenceNumber()
         {
             string userChoice;
-            string LicenceNumber = m_UI.getLicenceNumber();
-            ClientCard CurrentVehicle = m_Garage.FindByLicenceNum(LicenceNumber);   //try catch 
+            bool success = false;
+            string licenceNumber = string.Empty;
+            ClientCard currentVehicle = null;
+            while (!success)
+            {
+                try
+                {
+                    licenceNumber = m_UI.getLicenceNumber();
+                    currentVehicle = m_Garage.FindByLicenceNum(licenceNumber);
+                    success = true;
+                }
+                catch (Exception ex)
+                {
+                    m_UI.Print(ex.Message);
+                }
+            }
 
             m_UI.printByLicenceCommands();
-            userChoice = m_UI.GetKeyFromUser();
+            userChoice = m_UI.GetKeyFromUser(1, Enum.GetValues(typeof(eOptionsByLicence)).Length);
             eOptionsByLicence choiceAsEnum = (eOptionsByLicence)Enum.Parse(typeof(eOptionsByLicence), userChoice);
 
-            switch (choiceAsEnum)
+            try
             {
-                case eOptionsByLicence.modifyState:
-                    modifyVehicleState(LicenceNumber);
-                    break;
-                case eOptionsByLicence.inflateWheels:
-                    inflateWheels(LicenceNumber);
-                    break;
-                case eOptionsByLicence.fuelGasVehicle:
-                    fillEnergy(CurrentVehicle);
-                    break;
-                case eOptionsByLicence.ChargeElectircCar:
-                    fillEnergy(CurrentVehicle);
-                    break;
-                case eOptionsByLicence.showVehicleData:
-                    showVehicleData(LicenceNumber);
-                    break;
+                switch (choiceAsEnum)
+                {
+                    case eOptionsByLicence.modifyState:
+                        modifyVehicleState(licenceNumber);
+                        break;
+                    case eOptionsByLicence.inflateWheels:
+                        inflateWheels(licenceNumber);
+                        break;
+                    case eOptionsByLicence.fuelGasVehicle:
+                        fuelVehicle(currentVehicle);
+                        break;
+                    case eOptionsByLicence.ChargeElectircCar:
+                        chargeVehicle(currentVehicle);
+                        break;
+                    case eOptionsByLicence.showVehicleData:
+                        showVehicleData(licenceNumber);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                m_UI.Print(ex.Message);
+                m_UI.ToContinueMessage();
             }
         }
 
+
+        private void fuelVehicle(ClientCard i_Client)
+        {
+            if (i_Client.Vehicle.Engine is Electric)
+            {
+                throw new ArgumentException("Error: can not fuel an electric vehicle.");
+            }
+
+            fillEnergy(i_Client);
+        }
+
+        private void chargeVehicle(ClientCard i_Client)
+        {
+            if (i_Client.Vehicle.Engine is Gas)
+            {
+                throw new ArgumentException("Error: can not charge an fueled vehicle.");
+            }
+
+            fillEnergy(i_Client);
+        }
         private void modifyVehicleState(string i_LicenceNumber)
         {
             bool successChangeState = false;
@@ -151,7 +193,7 @@ namespace Ex03.ConsoleUI
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    m_UI.Print(ex.Message);
                 }
             }
         }
@@ -178,13 +220,13 @@ namespace Ex03.ConsoleUI
                 {
                     m_UI.Print(ex.Message);
                 }
-
             }
         }
 
         private void showVehicleData(string i_LicenceNumber)
         {
-            m_Garage.printVehicleData(i_LicenceNumber);
+            m_UI.Print(m_Garage.GetVehicleData(i_LicenceNumber));
+            m_UI.ToContinueMessage();
         }
 
 

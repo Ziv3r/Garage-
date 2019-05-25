@@ -12,6 +12,10 @@ namespace Ex03.GarageLogic
 
         public EnergySource( float i_TotalAmountOfEnergy, float i_Amount)
         {
+            if(i_Amount > i_TotalAmountOfEnergy)
+            {
+                throw new ValueOutOfRangeException(i_TotalAmountOfEnergy, 0);
+            }
             m_Amount = i_Amount;
             r_Capacity = i_TotalAmountOfEnergy;
         }

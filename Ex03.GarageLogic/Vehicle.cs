@@ -77,17 +77,20 @@ namespace Ex03.GarageLogic
                 curWheel.FillToMax();
             }
         }
-        public void FillEnergy(string i_Amount, string i_FuelType)
+        public void FillEnergy(string i_Amount, string i_FuelType = "None")
         {
             try
             {
+                string formatedFuelType = char.ToUpper(i_FuelType[0]) + i_FuelType.Substring(1);
                 float amount = float.Parse(i_Amount);
-                Gas.eFuelType type = (Gas.eFuelType)Enum.Parse(typeof(Gas.eFuelType), i_FuelType);
+                Gas.eFuelType type = (Gas.eFuelType)Enum.Parse(typeof(Gas.eFuelType), formatedFuelType);
+                amount = type == Gas.eFuelType.None ? amount / 60 : amount; //  user provide amount in minutes. amount saved in hours
                 m_EnergySource.FillEnergy(amount, type);
             }
-            catch (Exception ex)
+            catch (FormatException ex)
             {
-                throw new ArgumentException(string.Format("Error: \"{0}\" is not a valid type of feul.", i_FuelType), ex);
+                throw new ArgumentException(string.Format("Error: \"{0}\" is not a valid type of feul, " +
+                    "or \"{1}\" is not a valid amount", i_FuelType), ex);
             }
         }
 
