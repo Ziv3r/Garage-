@@ -54,14 +54,11 @@ namespace Ex03.ConsoleUI
 
         public List<string> GetVehicleCommonData()
         {
-            string engineType;
             string LicenceNumber;
             string modelName;
             string ownerName;
             string ownerPhone;
-
             List<string> userData = new List<string>();
-
             string[] vehicleTypes = new string[3] { "car", "Motor-Cycle", "Track" };
             string[] engineTypes = new string[2] { "Gas", "Electric" };
 
