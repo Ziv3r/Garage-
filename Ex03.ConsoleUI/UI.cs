@@ -126,7 +126,7 @@ namespace Ex03.ConsoleUI
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.InnerException.Message);
+                        Console.WriteLine(e.Message);
                     }
                 }
             }
@@ -146,24 +146,11 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("{0}. {1}", i++, vehicle);
             }
 
-            string choice;
-            choice = Console.ReadLine();
-            int vehicleChoice = 0;
-            bool success = false;
-
-            while (!success)
-            {
-                try
-                {
-                    vehicleChoice = int.Parse(choice);
-                    inRange(vehicleChoice, 1, i_SupportedVehicles.Count);
-                    success = true;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
+            int vehicleChoice = GetUserChoice(i_SupportedVehicles.Count);
+            //while (!int.TryParse(Console.ReadLine(), out vehicleChoice) || !inRange(vehicleChoice, 1, i_SupportedVehicles.Count))
+            //{
+            //    Console.WriteLine("please enter number between 1 to {0}", i_SupportedVehicles.Count);
+            //}
 
             return Type.GetType(string.Format("Ex03.GarageLogic.{0}, Ex03.GarageLogic", i_SupportedVehicles[vehicleChoice - 1]));
         }
