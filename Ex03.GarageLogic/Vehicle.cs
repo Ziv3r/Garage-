@@ -21,12 +21,14 @@ namespace Ex03.GarageLogic
             Gas.eFuelType i_fuelType,
             string i_CurrentAmountEnergy,
             float i_TotalAmountOfEnergy,
-            string i_WheelManufactor
+            string i_WheelManufactor,
+            string i_WheelAirPressure
             )
         {
             r_ModelName = i_modelName;
             r_LicenseNumber = i_LicenseNumber;
             float currAmountOfEnergy = -1f;
+            float currAirPressure;
             EnergySource.eEnergySourceType type;
             try
             {
@@ -38,7 +40,10 @@ namespace Ex03.GarageLogic
                 throw new FormatException(string.Format("Error: The field \"{0}\" was not in the right format",
                     currAmountOfEnergy == -1 ? "Fuel Amount" : "Engine Type"), ex);
             }
-
+            if(!float.TryParse(i_WheelAirPressure, out currAirPressure) || currAirPressure > i_MaxAirPreasure)
+            {
+                throw new FormatException(string.Format("Error: could not assign {0} as current air pressure", i_WheelAirPressure));
+            }
             if (type == EnergySource.eEnergySourceType.Gas)
             {
                 m_EnergySource = new Gas(currAmountOfEnergy, i_TotalAmountOfEnergy, i_fuelType);
@@ -51,7 +56,7 @@ namespace Ex03.GarageLogic
             m_VehicleWheels = new List<Wheel>();
             for (int i = 0; i < i_NumberOfWheels; i++)
             {
-                m_VehicleWheels.Add(new Wheel(i_MaxAirPreasure, i_WheelManufactor));
+                m_VehicleWheels.Add(new Wheel(i_MaxAirPreasure, i_WheelManufactor, currAirPressure));
             }
         }
 

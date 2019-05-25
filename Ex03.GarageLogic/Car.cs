@@ -33,7 +33,8 @@ namespace Ex03.GarageLogic
             string i_LicenseNumber,
             string i_VehicleType,
             string i_CurrentAmountEnergy,
-            string i_WheelManufactor
+            string i_WheelManufactor,
+            string i_CurrAirPressure
             )
             : this(i_modelName,
                   i_LicenseNumber,
@@ -41,7 +42,9 @@ namespace Ex03.GarageLogic
                   i_VehicleType == "Gas" ? Gas.eFuelType.Octan96 : Gas.eFuelType.None,
                   i_CurrentAmountEnergy,
                   i_VehicleType == "Gas" ? k_MaxLitersOfFeul : k_MaxAmountOfElectricJuice,
-                  i_WheelManufactor
+                  i_WheelManufactor,
+                  i_CurrAirPressure
+
                   )
         { }
 
@@ -51,7 +54,8 @@ namespace Ex03.GarageLogic
             Gas.eFuelType i_fuelType,
             string i_CurrentAmountEnergy,
             float i_TotalAmountOfEnergy,
-            string i_WheelManufactor
+            string i_WheelManufactor,
+            string i_CurrAirPressure
             )
            : base(i_modelName,
                   i_LicenseNumber,
@@ -61,7 +65,8 @@ namespace Ex03.GarageLogic
                   i_fuelType,
                   i_CurrentAmountEnergy,
                   i_TotalAmountOfEnergy,
-                  i_WheelManufactor
+                  i_WheelManufactor,
+                  i_CurrAirPressure
                   )
         { }
 

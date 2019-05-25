@@ -10,10 +10,11 @@ namespace Ex03.GarageLogic
         private readonly string r_ManufacturerName;
         private float m_AirPressure;
 
-        public Wheel(float i_CapacityAirPressure, string i_WheelManufactor)
+        public Wheel(float i_CapacityAirPressure, string i_WheelManufactor, float i_CurrAirPressure)
         {
             r_AirPressureCapacity = i_CapacityAirPressure;
             r_ManufacturerName = i_WheelManufactor;
+            m_AirPressure = i_CapacityAirPressure;
         }
 
         private void fill(float i_AmountToFillUp)

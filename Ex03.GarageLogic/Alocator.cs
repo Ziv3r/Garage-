@@ -26,7 +26,8 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[3],
                     i_VehiclesCommonData[4],
                     i_VehiclesCommonData[5],
-                    i_VehiclesCommonData[6]
+                    i_VehiclesCommonData[6],
+                    i_VehiclesCommonData[7]
                     );
             }
             else if (i_VehicleType.Equals(typeof(Motorcycle)))
@@ -36,7 +37,8 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[3],
                     i_VehiclesCommonData[4],
                     i_VehiclesCommonData[5],
-                    i_VehiclesCommonData[6]
+                    i_VehiclesCommonData[6],
+                    i_VehiclesCommonData[7]
                     );
             }
             else if (i_VehicleType.Equals(typeof(Truck)))
@@ -46,7 +48,8 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[3],
                     i_VehiclesCommonData[4],
                     i_VehiclesCommonData[5],
-                    i_VehiclesCommonData[6]
+                    i_VehiclesCommonData[6],
+                    i_VehiclesCommonData[7]
                     );
             }
 

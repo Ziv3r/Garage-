@@ -54,10 +54,6 @@ namespace Ex03.ConsoleUI
 
         public List<string> GetVehicleCommonData()
         {
-            string LicenceNumber;
-            string modelName;
-            string ownerName;
-            string ownerPhone;
             List<string> userData = new List<string>();
             string[] vehicleTypes = new string[3] { "car", "Motor-Cycle", "Track" };
             string[] engineTypes = new string[2] { "Gas", "Electric" };
@@ -68,31 +64,28 @@ namespace Ex03.ConsoleUI
             
             int energyTypeUserChoice = GetUserChoice(engineTypes.Length);
 
-            Console.WriteLine("please enter Licence Number");
-            LicenceNumber = readString();
-
-            Console.WriteLine("please enter Model Name");
-            modelName = readString();
-
             Console.WriteLine("please enter owner name");
-            ownerName = readString();
+            userData.Add(readString());
 
             Console.WriteLine("please enter owner phone");
-            ownerPhone = readString();
+            userData.Add(readString());
 
+            Console.WriteLine("please enter Model Name");
+            userData.Add(readString());
+
+            Console.WriteLine("please enter Licence Number");
+            userData.Add(readString());
+
+            userData.Add(engineTypes[--energyTypeUserChoice]);
+            
             Console.WriteLine("Enter current fuel amount:");
-            string fuelAmount = readString();
+            userData.Add(readString());
 
             Console.WriteLine("Enter wheels manufactor:");
-            string wheelsManufactor = readString();
+            userData.Add(readString());
 
-            userData.Add(ownerName);
-            userData.Add(ownerPhone);
-            userData.Add(modelName);
-            userData.Add(LicenceNumber);
-            userData.Add(engineTypes[--energyTypeUserChoice]);
-            userData.Add(fuelAmount);
-            userData.Add(wheelsManufactor);
+            Console.WriteLine("Enter wheels air pressure:");
+            userData.Add(readString());
 
             return userData;
         }
