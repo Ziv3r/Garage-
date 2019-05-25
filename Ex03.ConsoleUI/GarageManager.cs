@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Ex03.GarageLogic;
-
+using System.Reflection;
 namespace Ex03.ConsoleUI
 {
     class GarageManager
@@ -10,7 +10,7 @@ namespace Ex03.ConsoleUI
 
         public enum eMenuChoice : int
         {
-            AddVehichle = 0,
+            addVehichle = 0,
             showLicenceNumOfAll,
             showLicenceNumByState,
             actionByLicenceNumber,
@@ -21,7 +21,7 @@ namespace Ex03.ConsoleUI
             modifyState,
             inflateWheels,
             fuelGasVehicle,
-            ChargeElectircCar,
+            chargeElectircCar,
             showVehicleData,
         };
 
@@ -29,34 +29,70 @@ namespace Ex03.ConsoleUI
         Garage m_Garage = new Garage();
         Alocator m_Alocator = new Alocator();
         private bool m_ToExitProgram = false;
+        public static readonly List<Tuple> sr_MainMenuMethods;
+        public static readonly List<Tuple> sr_ByLicenceMethodes;
+        static GarageManager()
+        {
+            sr_MainMenuMethods = new List<Tuple>();
+            sr_ByLicenceMethodes = new List<Tuple>();
+            initByLicenceList();
+            initMainMenuMethodSet();
+        }
 
+        static private void initMainMenuMethodSet()
+        {
+            sr_MainMenuMethods.Add(new Tuple(1, "Add a new vehicle to garage", "addNewVehicle"));
+            sr_MainMenuMethods.Add(new Tuple(2, "Display license plate numbers for all vehicles in the garage.", "showAllLicenceNumbers"));
+            sr_MainMenuMethods.Add(new Tuple(3, "Display license numbers for vehicles filtered by garage status.", "showLicenceNumByState"));
+            sr_MainMenuMethods.Add(new Tuple(4, "Make an action for specific car by Licence number", "CommandByLicenceNumber"));
+            sr_MainMenuMethods.Add(new Tuple(5, "Quit.", "exitProgram"));
+        }
+        static private void initByLicenceList()
+        {
+            sr_ByLicenceMethodes.Add(new Tuple(1, "Modify a vehicle's status", "modifyVehicleState"));
+            sr_ByLicenceMethodes.Add(new Tuple(2, "Inflate a vehicle's wheels to maximum.", "inflateWheels"));
+            sr_ByLicenceMethodes.Add(new Tuple(3, "Refuel a gasoline-powered vehicle.", "fuelVehicle"));
+            sr_ByLicenceMethodes.Add(new Tuple(4, "Charge an electric vehicle.", "chargeElectircCar"));
+            sr_ByLicenceMethodes.Add(new Tuple(5, "Display full details of a vehicle.", "showVehicleData"));
+        }
         public void Run()
         {
-            string userChoice;
-            eMenuChoice choiceAsEnum;
             while (!m_ToExitProgram)
             {
-                m_UI.PrintMenu();
-                userChoice = m_UI.GetKeyFromUser(1, Enum.GetValues(typeof(eOptionsByLicence)).Length);
-                choiceAsEnum = (eMenuChoice)Enum.Parse(typeof(eMenuChoice), userChoice);
-                switch (choiceAsEnum)
+                m_UI.PrintMenu(sr_MainMenuMethods);
+                int serialNumOfMethod = m_UI.GetUserChoice(sr_MainMenuMethods.Count);
+                foreach(Tuple method in sr_MainMenuMethods)
                 {
-                    case eMenuChoice.AddVehichle:
-                        addNewVehicle();
+                    if(serialNumOfMethod == method.SerialNumber)
+                    {
+                        try
+                        {
+                            execute(method.Method);
+                        }
+                        catch(Exception ex)
+                        {
+                            m_UI.Print(ex.Message);
+                        }
                         break;
-                    case eMenuChoice.showLicenceNumOfAll:
-                        showAllLicenceNumbers();
-                        break;
-                    case eMenuChoice.showLicenceNumByState:
-                        showLicenceNumByState();
-                        break;
-                    case eMenuChoice.actionByLicenceNumber:
-                        CommandByLicenceNumber();
-                        break;
-                    case eMenuChoice.exit:
-                        m_ToExitProgram = true;
-                        break;
+                    }
                 }
+            }
+        }
+
+        private void exitProgram()
+        {
+            m_ToExitProgram = true;
+        }
+        private void execute(string i_MethodStr, ClientCard i_InputForMethod = null)
+        {
+            MethodInfo methodToExecute = this.GetType().GetMethod(i_MethodStr, BindingFlags.Instance | BindingFlags.NonPublic);
+            if(i_InputForMethod != null)
+            {
+             methodToExecute.Invoke(this, new object[] {i_InputForMethod });
+            }
+            else
+            {
+                methodToExecute.Invoke(this, new object[] {});
             }
         }
 
@@ -110,7 +146,22 @@ namespace Ex03.ConsoleUI
 
         private void CommandByLicenceNumber()
         {
-            string userChoice;
+            ClientCard currentVehicle = getVehicleFromUser();
+
+            m_UI.PrintMenu(sr_ByLicenceMethodes);
+            int serialNumOfMethod = m_UI.GetUserChoice(sr_ByLicenceMethodes.Count);
+            foreach(Tuple method in sr_ByLicenceMethodes)
+            {
+                if(serialNumOfMethod == method.SerialNumber)
+                {
+                    execute(method.Method, currentVehicle);
+                    break;
+                }
+            }
+        }
+
+        private ClientCard getVehicleFromUser()
+        {
             bool success = false;
             string licenceNumber = string.Empty;
             ClientCard currentVehicle = null;
@@ -128,38 +179,8 @@ namespace Ex03.ConsoleUI
                 }
             }
 
-            m_UI.printByLicenceCommands();
-            userChoice = m_UI.GetKeyFromUser(1, Enum.GetValues(typeof(eOptionsByLicence)).Length);
-            eOptionsByLicence choiceAsEnum = (eOptionsByLicence)Enum.Parse(typeof(eOptionsByLicence), userChoice);
-
-            try
-            {
-                switch (choiceAsEnum)
-                {
-                    case eOptionsByLicence.modifyState:
-                        modifyVehicleState(licenceNumber);
-                        break;
-                    case eOptionsByLicence.inflateWheels:
-                        inflateWheels(licenceNumber);
-                        break;
-                    case eOptionsByLicence.fuelGasVehicle:
-                        fuelVehicle(currentVehicle);
-                        break;
-                    case eOptionsByLicence.ChargeElectircCar:
-                        chargeVehicle(currentVehicle);
-                        break;
-                    case eOptionsByLicence.showVehicleData:
-                        showVehicleData(licenceNumber);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                m_UI.Print(ex.Message);
-                m_UI.ToContinueMessage();
-            }
+            return currentVehicle;
         }
-
 
         private void fuelVehicle(ClientCard i_Client)
         {
@@ -180,7 +201,7 @@ namespace Ex03.ConsoleUI
 
             fillEnergy(i_Client);
         }
-        private void modifyVehicleState(string i_LicenceNumber)
+        private void modifyVehicleState(ClientCard i_Client)
         {
             bool successChangeState = false;
             while (!successChangeState)
@@ -188,7 +209,7 @@ namespace Ex03.ConsoleUI
                 try
                 {
                     string newState = m_UI.GetState();
-                    m_Garage.ChangeVehicleState(i_LicenceNumber, newState);
+                    m_Garage.ChangeVehicleState(i_Client.Vehicle.LicenceNumber, newState);
                     successChangeState = true;
                 }
                 catch (Exception ex)
@@ -197,9 +218,9 @@ namespace Ex03.ConsoleUI
                 }
             }
         }
-        private void inflateWheels(string i_LicenceNumber)
+        private void inflateWheels(ClientCard i_Client)
         {
-            m_Garage.inflateWheels(i_LicenceNumber);
+            m_Garage.inflateWheels(i_Client.Vehicle.LicenceNumber);
         }
 
         private void fillEnergy(ClientCard i_ClientCard)
@@ -223,12 +244,11 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void showVehicleData(string i_LicenceNumber)
+        private void showVehicleData(ClientCard i_Client)
         {
-            m_UI.Print(m_Garage.GetVehicleData(i_LicenceNumber));
+            m_UI.Print(m_Garage.GetVehicleData(i_Client.Vehicle.LicenceNumber));
             m_UI.ToContinueMessage();
         }
-
 
     }
 }

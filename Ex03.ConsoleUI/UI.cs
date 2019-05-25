@@ -9,22 +9,6 @@ namespace Ex03.ConsoleUI
     class UI
     {
         private const string k_goodByeMessage = "Good Bye...";
-        private const string k_MainMenuText =
-@"Please choose from the following options (1-5):
-        1. Add a new vehicle to garage.
-        2. Display license plate numbers for all vehicles in the garage.
-        3. Display license numbers for vehicles filtered by garage status.
-        4. Make an action for specific car by Licence number .
-        5. Quit.
-        ";
-        private const string k_MenuByLicence =
-@"Please choose from the following options (1-5):
-        1. Modify a vehicle's status.
-        2. Inflate a vehicle's wheels to maximum.
-        3. Refuel a gasoline-powered vehicle.
-        4. Charge an electric vehicle.
-        5. Display full details of a vehicle.
-";
         private const string k_toContinue = "Please press any key to continue"; 
 
         public string GoodByeMessage
@@ -42,21 +26,25 @@ namespace Ex03.ConsoleUI
             ToContinueMessage();
         }
 
-        public void PrintMenu()
+        public void PrintMenu(List<Tuple> i_ToPrint)
         {
             Console.Clear();
-            Console.WriteLine(k_MainMenuText);
+            Console.WriteLine("Please choose from the following options");
+            foreach(Tuple element in i_ToPrint)
+            {
+                Console.WriteLine(element.ToString());
+            }
         }
 
-        public string GetKeyFromUser(int i_Min, int i_Max)
+        public int GetUserChoice(int i_Range)
         {
-            int res;
-            while (!int.TryParse(Console.ReadLine(), out res) || !inRange(res, i_Min, i_Max))
+            int choice = 0;
+            while(!int.TryParse(Console.ReadLine(), out choice) || !inRange(choice, 1, i_Range))
             {
-                Console.WriteLine("Please enter number between 1-5");
+                Console.WriteLine("please provide number between 1 to {0}", i_Range);
             }
-            res--;
-            return res.ToString();
+
+            return choice;
         }
 
         public void Print(string i_Message)
@@ -78,8 +66,8 @@ namespace Ex03.ConsoleUI
             string[] engineTypes = new string[2] { "Gas", "Electric" };
 
             Console.WriteLine(@"please choose engine type :
-            1.gas 
-            2.electric");
+1.gas 
+2.electric");
             
             int energyTypeUserChoice = 0;
 
@@ -142,11 +130,6 @@ namespace Ex03.ConsoleUI
                     }
                 }
             }
-        }
-        public void printByLicenceCommands()
-        {
-            Console.Clear();
-            Console.WriteLine(k_MenuByLicence);
         }
 
         private bool inRange(int i_NumToCheck, int i_Min, int i_Max)
