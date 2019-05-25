@@ -69,33 +69,25 @@ namespace Ex03.ConsoleUI
 1.gas 
 2.electric");
             
-            int energyTypeUserChoice = 0;
-
-            engineType = Console.ReadLine();
-
-            while (!int.TryParse(engineType, out energyTypeUserChoice) && !inRange(energyTypeUserChoice, 1, 2))
-            {
-                Console.WriteLine("enter 1 or 2");
-                engineType = Console.ReadLine();
-            }
+            int energyTypeUserChoice = GetUserChoice(engineTypes.Length);
 
             Console.WriteLine("please enter Licence Number");
-            LicenceNumber = Console.ReadLine();
+            LicenceNumber = readString();
 
             Console.WriteLine("please enter Model Name");
-            modelName = Console.ReadLine();
+            modelName = readString();
 
             Console.WriteLine("please enter owner name");
-            ownerName = Console.ReadLine();
+            ownerName = readString();
 
             Console.WriteLine("please enter owner phone");
-            ownerPhone = Console.ReadLine();
+            ownerPhone = readString();
 
             Console.WriteLine("Enter current fuel amount:");
-            string fuelAmount = Console.ReadLine();
+            string fuelAmount = readString();
 
             Console.WriteLine("Enter wheels manufactor:");
-            string wheelsManufactor = Console.ReadLine();
+            string wheelsManufactor = readString();
 
             userData.Add(ownerName);
             userData.Add(ownerPhone);
@@ -130,7 +122,7 @@ namespace Ex03.ConsoleUI
                     }
                 }
             }
-        }
+        } //relevant data for each vehicle
 
         private bool inRange(int i_NumToCheck, int i_Min, int i_Max)
         {
@@ -147,10 +139,6 @@ namespace Ex03.ConsoleUI
             }
 
             int vehicleChoice = GetUserChoice(i_SupportedVehicles.Count);
-            //while (!int.TryParse(Console.ReadLine(), out vehicleChoice) || !inRange(vehicleChoice, 1, i_SupportedVehicles.Count))
-            //{
-            //    Console.WriteLine("please enter number between 1 to {0}", i_SupportedVehicles.Count);
-            //}
 
             return Type.GetType(string.Format("Ex03.GarageLogic.{0}, Ex03.GarageLogic", i_SupportedVehicles[vehicleChoice - 1]));
         }
@@ -162,7 +150,7 @@ namespace Ex03.ConsoleUI
             return state;
         }
 
-        public void getDataForFillEnergy(EnergySource i_EnergySource, out string o_Amount, out string o_FuelType)
+        public void GetDataForFillEnergy(EnergySource i_EnergySource, out string o_Amount, out string o_FuelType)
         {
             o_Amount = string.Empty;
             bool isGasVehicle = i_EnergySource is Gas;
@@ -185,7 +173,7 @@ namespace Ex03.ConsoleUI
             
 
         }
-        public string getLicenceNumber()
+        public string GetLicenceNumber()
         {
             Console.WriteLine("please enter a licence number");
             return (Console.ReadLine());
@@ -205,6 +193,28 @@ namespace Ex03.ConsoleUI
                 }
             }
                ToContinueMessage();
+        }
+
+        private string readString()
+        {
+            string toReturn = string.Empty;
+            while (isEmptyOrWhiteSpaces(toReturn))
+            {
+                toReturn = Console.ReadLine();
+            }
+
+            return toReturn;
+        }
+
+        private bool isEmptyOrWhiteSpaces(string i_ToCheck)
+        {
+            bool isAllWhiteSpaces = true;
+            foreach(char c in i_ToCheck)
+            {
+                isAllWhiteSpaces = c.Equals(' ') ? isAllWhiteSpaces : false;
+            }
+
+            return isAllWhiteSpaces || i_ToCheck.Equals(string.Empty);
         }
     }
 }

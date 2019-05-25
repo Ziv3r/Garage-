@@ -7,30 +7,13 @@ namespace Ex03.ConsoleUI
 {
     class GarageManager
     {
-
-        public enum eMenuChoice : int
-        {
-            addVehichle = 0,
-            showLicenceNumOfAll,
-            showLicenceNumByState,
-            actionByLicenceNumber,
-            exit
-        };
-        public enum eOptionsByLicence : int
-        {
-            modifyState,
-            inflateWheels,
-            fuelGasVehicle,
-            chargeElectircCar,
-            showVehicleData,
-        };
+        public static readonly List<Tuple> sr_MainMenuMethods;
+        public static readonly List<Tuple> sr_ByLicenceMethodes;
 
         UI m_UI = new UI();
         Garage m_Garage = new Garage();
         Alocator m_Alocator = new Alocator();
         private bool m_ToExitProgram = false;
-        public static readonly List<Tuple> sr_MainMenuMethods;
-        public static readonly List<Tuple> sr_ByLicenceMethodes;
         static GarageManager()
         {
             sr_MainMenuMethods = new List<Tuple>();
@@ -169,7 +152,7 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    licenceNumber = m_UI.getLicenceNumber();
+                    licenceNumber = m_UI.GetLicenceNumber();
                     currentVehicle = m_Garage.FindByLicenceNum(licenceNumber);
                     success = true;
                 }
@@ -233,7 +216,7 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    m_UI.getDataForFillEnergy(i_ClientCard.Vehicle.Engine, out amount, out fuelType);
+                    m_UI.GetDataForFillEnergy(i_ClientCard.Vehicle.Engine, out amount, out fuelType);
                     i_ClientCard.Vehicle.FillEnergy(amount, fuelType);
                     succesFillEnergy = true;
                 }
@@ -249,6 +232,5 @@ namespace Ex03.ConsoleUI
             m_UI.Print(m_Garage.GetVehicleData(i_Client.Vehicle.LicenceNumber));
             m_UI.ToContinueMessage();
         }
-
     }
 }
