@@ -6,7 +6,14 @@ namespace Ex03.GarageLogic
 {
     public class Gas : EnergySource
     {
-        public enum eFuelType { Soler, Octan95, Octan96, Octan98, None }
+        public enum eFuelType
+        {
+            Soler,
+            Octan95,
+            Octan96,
+            Octan98,
+            None
+        }
 
         public readonly eFuelType r_FuelType;
 
@@ -22,6 +29,7 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException(string.Format("Error:Fuel type does not much. fuel type must be {0}", r_FuelType));
             }
+
             if (i_AmountToFillUp + m_Amount > r_Capacity)
             {
                 throw new ValueOutOfRangeException(0, r_Capacity - m_Amount);
@@ -29,12 +37,16 @@ namespace Ex03.GarageLogic
 
             m_Amount += i_AmountToFillUp;
         }
+
         public override string ToString()
         {
-            return string.Format(@"Max Amount Of Feul(liters): {0}
+            return string.Format(
+                @"Max Amount Of Feul(liters): {0}
 Current Amount Of Fuel(liters): {1}
-Fuel Type: {2}", r_Capacity, m_Amount, r_FuelType);
+Fuel Type: {2}",
+                r_Capacity,
+                m_Amount,
+                r_FuelType);
         }
-
     }
 }

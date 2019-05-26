@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Ex03.GarageLogic;
 using System.Reflection;
+using Ex03.GarageLogic;
+
 namespace Ex03.ConsoleUI
 {
-    class GarageManager
+    internal class GarageManager
     {
         public static readonly List<Tuple> sr_MainMenuMethods;
         public static readonly List<Tuple> sr_ByLicenceMethodes;
 
-        UI m_UI = new UI();
-        Garage m_Garage = new Garage();
-        Alocator m_Alocator = new Alocator();
+        private UI m_UI = new UI();
+        private Garage m_Garage = new Garage();
+        private Alocator m_Alocator = new Alocator();
         private bool m_ToExitProgram = false;
+
         static GarageManager()
         {
             sr_MainMenuMethods = new List<Tuple>();
@@ -22,7 +23,7 @@ namespace Ex03.ConsoleUI
             initByLicenceList();
         }
 
-        static private void initMainMenuMethodSet()
+        private static void initMainMenuMethodSet()
         {
             sr_MainMenuMethods.Add(new Tuple(1, "Add a new vehicle to garage", "addNewVehicle"));
             sr_MainMenuMethods.Add(new Tuple(2, "Display license plate numbers for all vehicles in the garage.", "showAllLicenceNumbers"));
@@ -30,7 +31,8 @@ namespace Ex03.ConsoleUI
             sr_MainMenuMethods.Add(new Tuple(4, "Make an action for specific car by Licence number", "commandByLicenceNumber"));
             sr_MainMenuMethods.Add(new Tuple(5, "Quit.", "exitProgram"));
         }
-        static private void initByLicenceList()
+
+        private static void initByLicenceList()
         {
             sr_ByLicenceMethodes.Add(new Tuple(1, "Modify a vehicle's status", "modifyVehicleState"));
             sr_ByLicenceMethodes.Add(new Tuple(2, "Inflate a vehicle's wheels to maximum.", "inflateWheels"));
@@ -38,25 +40,27 @@ namespace Ex03.ConsoleUI
             sr_ByLicenceMethodes.Add(new Tuple(4, "Charge an electric vehicle.", "chargeVehicle"));
             sr_ByLicenceMethodes.Add(new Tuple(5, "Display full details of a vehicle.", "showVehicleData"));
         }
+
         public void Run()
         {
             while (!m_ToExitProgram)
             {
                 m_UI.PrintMenu(sr_MainMenuMethods);
                 int serialNumOfMethod = m_UI.GetUserChoice(sr_MainMenuMethods.Count);
-                foreach(Tuple method in sr_MainMenuMethods)
+                foreach (Tuple method in sr_MainMenuMethods)
                 {
-                    if(serialNumOfMethod == method.SerialNumber)
+                    if (serialNumOfMethod == method.SerialNumber)
                     {
                         try
                         {
                             execute(method.Method);
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
-                            m_UI.Print(ex.Message);
+                            m_UI.Print(ex.InnerException.InnerException.Message);
                             m_UI.ToContinueMessage();
                         }
+
                         break;
                     }
                 }
@@ -67,17 +71,18 @@ namespace Ex03.ConsoleUI
         {
             m_ToExitProgram = true;
         }
+
         private void execute(string i_MethodStr, ClientCard i_InputForMethod = null)
         {
-            MethodInfo methodToExecute = this.GetType().GetMethod(i_MethodStr, BindingFlags.Instance | BindingFlags.NonPublic);
-            if(i_InputForMethod != null)
-            {
-             methodToExecute.Invoke(this, new object[] {i_InputForMethod });
-            }
-            else
-            {
-                methodToExecute.Invoke(this, new object[] {});
-            }
+                MethodInfo methodToExecute = GetType().GetMethod(i_MethodStr, BindingFlags.Instance | BindingFlags.NonPublic);
+                if (i_InputForMethod != null)
+                {
+                    methodToExecute.Invoke(this, new object[] { i_InputForMethod });
+                }
+                else
+                {
+                    methodToExecute.Invoke(this, new object[] { });
+                }
         }
 
         private void addNewVehicle()
@@ -103,11 +108,13 @@ namespace Ex03.ConsoleUI
                 }
             }
         }
+
         private void showAllLicenceNumbers()
         {
             List<string> LicenceNumbers = m_Garage.GetAllPlates();
             m_UI.PrintList(LicenceNumbers);
         }
+
         private void showLicenceNumByState()
         {
             bool succesFindState = false;
@@ -122,21 +129,20 @@ namespace Ex03.ConsoleUI
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    m_UI.Print(ex.Message);
                 }
             }
-
         }
 
         private void commandByLicenceNumber()
         {
             ClientCard currentVehicle = getVehicleFromUser();
- 
+
             m_UI.PrintMenu(sr_ByLicenceMethodes);
             int serialNumOfMethod = m_UI.GetUserChoice(sr_ByLicenceMethodes.Count);
-            foreach(Tuple method in sr_ByLicenceMethodes)
+            foreach (Tuple method in sr_ByLicenceMethodes)
             {
-                if(serialNumOfMethod == method.SerialNumber)
+                if (serialNumOfMethod == method.SerialNumber)
                 {
                     execute(method.Method, currentVehicle);
                     break;
@@ -185,6 +191,7 @@ namespace Ex03.ConsoleUI
 
             fillEnergy(i_Client);
         }
+
         private void modifyVehicleState(ClientCard i_Client)
         {
             bool successChangeState = false;
@@ -202,6 +209,7 @@ namespace Ex03.ConsoleUI
                 }
             }
         }
+
         private void inflateWheels(ClientCard i_Client)
         {
             m_Garage.inflateWheels(i_Client.Vehicle.LicenceNumber);
@@ -224,6 +232,7 @@ namespace Ex03.ConsoleUI
                 catch (Exception ex)
                 {
                     m_UI.Print(ex.Message);
+                    m_UI.ToContinueMessage();
                 }
             }
         }

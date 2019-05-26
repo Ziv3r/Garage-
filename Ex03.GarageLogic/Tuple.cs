@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    //  class will be used as a data stracture to hold and excecute operations in garageManager
+    // class will be used as a data stracture to hold and excecute operations in garageManager
     public class Tuple
     {
         private readonly int r_SerialNumber;
@@ -17,8 +17,8 @@ namespace Ex03.GarageLogic
             r_Method = i_Method;
             r_Message = i_Message;
         }
-        //  properties
 
+        // properties
         public int SerialNumber
         {
             get { return r_SerialNumber; }
@@ -34,7 +34,7 @@ namespace Ex03.GarageLogic
             get { return r_Method; }
         }
 
-        //  methods
+        // methods
         public override string ToString()
         {
             return string.Format("{0}. {1}", r_SerialNumber, r_Message);

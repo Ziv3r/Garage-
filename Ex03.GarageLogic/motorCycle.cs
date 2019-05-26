@@ -10,11 +10,12 @@ namespace Ex03.GarageLogic
         private const float k_MaxAirPressure = 33f;
         private const float k_MaxAmountOfFeul = 8f;
         private const float k_MaxAmountOfElectricJuice = 1.4f;
+
         public enum eLicenceType
         {
             A, A1, A2, B
         }
-        // change both to readonly
+
         private eLicenceType m_LicenceType;
         private int m_EngineBlackSmith;
 
@@ -23,16 +24,16 @@ namespace Ex03.GarageLogic
             s_VehicleParams = new Dictionary<string, string>();
             s_VehicleParams.Add("Enter Engine Volume:", "SetEngineVolume");
             s_VehicleParams.Add("Enter Licence Type ", "SetLicenceType");
-
         }
+
         public Motorcycle(
             string i_ModelName,
             string i_LicenceNumber,
             string i_VehicleType,
             string i_CurrentAmountEnergy,
             string i_WheelManufactor,
-            string i_CurrAirPressure
-            ) : this(
+            string i_CurrAirPressure)
+            : this(
                 i_ModelName,
                 i_LicenceNumber,
                 i_VehicleType,
@@ -40,9 +41,9 @@ namespace Ex03.GarageLogic
                 i_CurrentAmountEnergy,
                 i_VehicleType == "gas" ? k_MaxAmountOfFeul : k_MaxAmountOfElectricJuice,
                 i_WheelManufactor,
-                i_CurrAirPressure
-                )
-        { }
+                i_CurrAirPressure)
+        {
+        }
 
         public Motorcycle(
             string i_ModelName,
@@ -52,8 +53,8 @@ namespace Ex03.GarageLogic
             string i_CurrentAmountEnergy,
             float i_TotalAmountOfEnergy,
             string i_WheelManufactor,
-            string i_CurrAirPressure
-            ) : base(
+            string i_CurrAirPressure)
+            : base(
                 i_ModelName,
                 i_LicenseNumber,
                 k_NumOfWheels,
@@ -63,10 +64,9 @@ namespace Ex03.GarageLogic
                 i_CurrentAmountEnergy,
                 i_TotalAmountOfEnergy,
                 i_WheelManufactor,
-                i_CurrAirPressure
-                )
-        {}
-
+                i_CurrAirPressure)
+        {
+        }
 
         public void SetEngineVolume(string i_Volume)
         {
@@ -95,14 +95,19 @@ namespace Ex03.GarageLogic
             {
                 throw new ArgumentException("Error: licence type must be A, A1, A2 or B}");
             }
+
             m_LicenceType = licenceTypeAsEnum;
         }
 
         public override string ToString()
         {
-            return string.Format(@"{0}
+            return string.Format(
+                @"{0}
 Engine Volume: {1}
-Licence: {2}", base.ToString(), m_EngineBlackSmith, m_LicenceType);
+Licence: {2}",
+                base.ToString(),
+                m_EngineBlackSmith,
+                m_LicenceType);
         }
     }
 }

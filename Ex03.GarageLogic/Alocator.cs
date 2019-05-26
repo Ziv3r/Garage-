@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Ex03.GarageLogic
 {
     public class Alocator
     {
         public static List<string> s_SupportedVehicles;
-        // how should we know which data in each string in the list ? 
+
         static Alocator()
         {
             s_SupportedVehicles = new List<string> { "Car", "Truck", "Motorcycle" };
@@ -27,8 +26,7 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[4],
                     i_VehiclesCommonData[5],
                     i_VehiclesCommonData[6],
-                    i_VehiclesCommonData[7]
-                    );
+                    i_VehiclesCommonData[7]);
             }
             else if (i_VehicleType.Equals(typeof(Motorcycle)))
             {
@@ -38,8 +36,7 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[4],
                     i_VehiclesCommonData[5],
                     i_VehiclesCommonData[6],
-                    i_VehiclesCommonData[7]
-                    );
+                    i_VehiclesCommonData[7]);
             }
             else if (i_VehicleType.Equals(typeof(Truck)))
             {
@@ -49,10 +46,8 @@ namespace Ex03.GarageLogic
                     i_VehiclesCommonData[4],
                     i_VehiclesCommonData[5],
                     i_VehiclesCommonData[6],
-                    i_VehiclesCommonData[7]
-                    );
+                    i_VehiclesCommonData[7]);
             }
-
             else
             {
                 throw new ArgumentException("Error: invalid type of vehicle");
@@ -61,11 +56,9 @@ namespace Ex03.GarageLogic
             return new ClientCard(i_VehiclesCommonData[0], i_VehiclesCommonData[1], newVehicle);
         }
 
-
         public List<string> SupportedVehicles
         {
             get { return s_SupportedVehicles; }
         }
     }
 }
-

@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private Dictionary<string, ClientCard> m_Clients= new Dictionary<string, ClientCard>();
+        private Dictionary<string, ClientCard> m_Clients = new Dictionary<string, ClientCard>();
 
         public ClientCard FindByLicenceNum(string i_LicenceNum)
         {
@@ -28,26 +28,28 @@ namespace Ex03.GarageLogic
             m_Clients[i_LicenceNumber].State = statusToState(i_NewState);
         }
 
-        private eState statusToState(string i_Status)
+        private ClientCard.eState statusToState(string i_Status)
         {
             int index = 0;
             foreach (string status in ClientCard.VehicleStatusSet)
             {
                 if (status.Equals(i_Status.ToLower()))
                 {
-                    return (eState)index;
+                    return (ClientCard.eState)index;
                 }
 
                 index++;
             }
 
-            throw new FormatException(string.Format(@"Error: {0} is not a valid status of vehicle.
-status must be on of the following: on work, finished, payed", i_Status));
+            throw new FormatException(string.Format(
+                @"Error: {0} is not a valid status of vehicle.
+status must be on of the following: on work, finished, payed",
+                i_Status));
         }
 
         public List<string> FindByState(string i_State)
         {
-            eState enumState = statusToState(i_State);
+            ClientCard.eState enumState = statusToState(i_State);
          
             List<string> listByState = new List<string>();
             foreach(KeyValuePair<string, ClientCard> pair in m_Clients)
@@ -76,7 +78,7 @@ status must be on of the following: on work, finished, payed", i_Status));
         {
             if (m_Clients.ContainsKey(i_ToAdd.Vehicle.LicenceNumber))
             {
-                i_ToAdd.State = statusToState(ClientCard.VehicleStatusSet[(int)eState.onWork]);
+                i_ToAdd.State = statusToState(ClientCard.VehicleStatusSet[(int)ClientCard.eState.onWork]);
                 throw new ArgumentException("Error: Vehicle already exsists. status modified to \"on work\"");
             }
 

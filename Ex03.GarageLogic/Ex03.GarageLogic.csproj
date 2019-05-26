@@ -40,7 +40,6 @@
     <Compile Include="ClientCard.cs" />
     <Compile Include="Electric.cs" />
     <Compile Include="EnergySource.cs" />
-    <Compile Include="eState.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="Gas.cs" />
     <Compile Include="Motorcycle.cs" />
@@ -49,6 +48,9 @@
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="Wheel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

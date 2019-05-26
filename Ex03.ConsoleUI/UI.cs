@@ -6,7 +6,7 @@ using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-    class UI
+    internal class UI
     {
         private const string k_goodByeMessage = "Good Bye...";
         private const string k_toContinue = "Please press any key to continue"; 
@@ -15,11 +15,13 @@ namespace Ex03.ConsoleUI
         {
             get { return k_goodByeMessage; }
         }
+
         public void ToContinueMessage()
         {
             Console.WriteLine(k_toContinue);
             Console.ReadLine();
         }
+
         public void VehicleAddedSuccessfully(Type i_VehicleType)
         {
             Console.WriteLine(string.Format("{0} added succesfully", i_VehicleType.Name));
@@ -90,6 +92,7 @@ namespace Ex03.ConsoleUI
             return userData;
         }
 
+        // relevant data for each vehicle
         public void GetRelevantDataFromUser(Vehicle i_Vehicle)
         {
             MethodInfo currMethod;
@@ -112,7 +115,7 @@ namespace Ex03.ConsoleUI
                     }
                 }
             }
-        } //relevant data for each vehicle
+        }
 
         private bool inRange(int i_NumToCheck, int i_Min, int i_Max)
         {
@@ -132,6 +135,7 @@ namespace Ex03.ConsoleUI
 
             return Type.GetType(string.Format("Ex03.GarageLogic.{0}, Ex03.GarageLogic", i_SupportedVehicles[vehicleChoice - 1]));
         }
+
         public string GetState()
         {
             string state;
@@ -153,20 +157,18 @@ namespace Ex03.ConsoleUI
             {
                 o_FuelType = "None";
             }
+
             while (o_Amount.Equals(string.Empty))
             {
                 Console.WriteLine("enter amount of {0} to fill", isGasVehicle ? "fuel" : "minutes");
                 o_Amount = Console.ReadLine();
             }
-
-            
-            
-
         }
+
         public string GetLicenceNumber()
         {
             Console.WriteLine("please enter a licence number");
-            return (Console.ReadLine());
+            return Console.ReadLine();
         }
 
         public void PrintList(List<string> i_ListToPrint)
@@ -182,6 +184,7 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(str);
                 }
             }
+
                ToContinueMessage();
         }
 

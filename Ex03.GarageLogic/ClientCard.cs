@@ -6,6 +6,13 @@ namespace Ex03.GarageLogic
 {
     public class ClientCard
     {
+        public enum eState
+        {
+            onWork,
+            finished,
+            payed
+        }
+
         private static readonly List<string> rs_VehicleStatusSet;
         private string m_OwnerName;
         private string m_OwnerCellPhone;
@@ -14,15 +21,21 @@ namespace Ex03.GarageLogic
 
         static ClientCard()
         {
-            rs_VehicleStatusSet = new List<string> { "on work", "finished", "payed"};
+            rs_VehicleStatusSet = new List<string> { "on work", "finished", "payed" };
         }
+
         public ClientCard(string i_Name, string i_Phone, Vehicle i_Vehicle)
         {
             m_Vehicle = i_Vehicle;
             m_OwnerName = i_Name;
             m_OwnerCellPhone = i_Phone;
         }
+
         // properties:
+        public static List<string> VehicleStatusSet
+        {
+            get { return rs_VehicleStatusSet; }
+        }
 
         public string OwnerName
         {
@@ -30,10 +43,6 @@ namespace Ex03.GarageLogic
             set { m_OwnerName = value; }
         }
         
-        public static List<string> VehicleStatusSet
-        {
-            get { return rs_VehicleStatusSet; }
-        }
         public string OwnerCellPhone
         {
             get { return m_OwnerCellPhone; }
@@ -53,7 +62,6 @@ namespace Ex03.GarageLogic
         }
 
         // methods:
-
         public void FillEnergy(string i_Amount, string i_Type)
         {
             m_Vehicle.FillEnergy(i_Amount, i_Type);
@@ -61,10 +69,15 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            return string.Format(@"Owner: {0}
+            return string.Format(   ////stylcop wants it like that though uts less readable...
+                @"Owner: {0}
 State: {1}
 Phone Number: {2}
-{3}", m_OwnerName, m_State, m_OwnerCellPhone, m_Vehicle.ToString());
+{3}",
+                m_OwnerName,
+                m_State,
+                m_OwnerCellPhone,
+                m_Vehicle.ToString());
         }
     }
 }
