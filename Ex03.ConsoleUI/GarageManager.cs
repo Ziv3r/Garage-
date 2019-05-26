@@ -7,8 +7,8 @@ namespace Ex03.ConsoleUI
 {
     internal class GarageManager
     {
-        public static readonly List<Tuple> sr_MainMenuMethods;
-        public static readonly List<Tuple> sr_ByLicenceMethodes;
+        private static readonly List<Tuple> sr_MainMenuMethods;
+        private static readonly List<Tuple> sr_ByLicenceMethodes;
 
         private UI m_UI = new UI();
         private Garage m_Garage = new Garage();
