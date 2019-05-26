@@ -22,7 +22,7 @@ namespace Ex03.ConsoleUI
         }
         public void VehicleAddedSuccessfully(Type i_VehicleType)
         {
-            Console.WriteLine(string.Format("Vehicle from type {0} added succesfully", i_VehicleType.Name));
+            Console.WriteLine(string.Format("{0} added succesfully", i_VehicleType.Name));
             ToContinueMessage();
         }
 
@@ -46,7 +46,7 @@ namespace Ex03.ConsoleUI
 
             return choice;
         }
-
+        
         public void Print(string i_Message)
         {
             Console.WriteLine(i_Message);

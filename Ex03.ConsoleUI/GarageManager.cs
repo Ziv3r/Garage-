@@ -18,8 +18,8 @@ namespace Ex03.ConsoleUI
         {
             sr_MainMenuMethods = new List<Tuple>();
             sr_ByLicenceMethodes = new List<Tuple>();
-            initByLicenceList();
             initMainMenuMethodSet();
+            initByLicenceList();
         }
 
         static private void initMainMenuMethodSet()
@@ -27,7 +27,7 @@ namespace Ex03.ConsoleUI
             sr_MainMenuMethods.Add(new Tuple(1, "Add a new vehicle to garage", "addNewVehicle"));
             sr_MainMenuMethods.Add(new Tuple(2, "Display license plate numbers for all vehicles in the garage.", "showAllLicenceNumbers"));
             sr_MainMenuMethods.Add(new Tuple(3, "Display license numbers for vehicles filtered by garage status.", "showLicenceNumByState"));
-            sr_MainMenuMethods.Add(new Tuple(4, "Make an action for specific car by Licence number", "CommandByLicenceNumber"));
+            sr_MainMenuMethods.Add(new Tuple(4, "Make an action for specific car by Licence number", "commandByLicenceNumber"));
             sr_MainMenuMethods.Add(new Tuple(5, "Quit.", "exitProgram"));
         }
         static private void initByLicenceList()
@@ -35,7 +35,7 @@ namespace Ex03.ConsoleUI
             sr_ByLicenceMethodes.Add(new Tuple(1, "Modify a vehicle's status", "modifyVehicleState"));
             sr_ByLicenceMethodes.Add(new Tuple(2, "Inflate a vehicle's wheels to maximum.", "inflateWheels"));
             sr_ByLicenceMethodes.Add(new Tuple(3, "Refuel a gasoline-powered vehicle.", "fuelVehicle"));
-            sr_ByLicenceMethodes.Add(new Tuple(4, "Charge an electric vehicle.", "chargeElectircCar"));
+            sr_ByLicenceMethodes.Add(new Tuple(4, "Charge an electric vehicle.", "chargeVehicle"));
             sr_ByLicenceMethodes.Add(new Tuple(5, "Display full details of a vehicle.", "showVehicleData"));
         }
         public void Run()
@@ -55,6 +55,7 @@ namespace Ex03.ConsoleUI
                         catch(Exception ex)
                         {
                             m_UI.Print(ex.Message);
+                            m_UI.ToContinueMessage();
                         }
                         break;
                     }
@@ -127,10 +128,10 @@ namespace Ex03.ConsoleUI
 
         }
 
-        private void CommandByLicenceNumber()
+        private void commandByLicenceNumber()
         {
             ClientCard currentVehicle = getVehicleFromUser();
-
+ 
             m_UI.PrintMenu(sr_ByLicenceMethodes);
             int serialNumOfMethod = m_UI.GetUserChoice(sr_ByLicenceMethodes.Count);
             foreach(Tuple method in sr_ByLicenceMethodes)
